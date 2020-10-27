@@ -1,0 +1,47 @@
+global-styling:
+  css:
+    theme:
+      css/materialize.css: {}
+      css/overrides.css: {}
+      css/nfl.css: {}
+      css/dataviz.css: {}
+  js:
+    js/isotope.pkgd.min.js: {}
+    js/materialize.js: {}
+    js/jquery.tablesorter.js: {}
+  dependencies:
+    - core/jquery
+
+font-awesome:
+  css:
+    theme:
+      fontawesome/css/all.css: {}
+  js:
+    fontawesome/js/all.js: {}
+
+parallax-init:
+  header: true
+  js:
+    js/parallax-init.js: {}
+  dependencies:
+    - core/jquery
+
+expandgifs:
+  js:
+    js/expand-gif.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal.dialog
+
+videojs:
+  remote: https//vjs.zencdn.net/5.0/video.js
+  version: 5.0.0
+  license:
+    name: Apache 2.0
+    url: https://github.com/videojs/video.js/blob/master/LICENSE
+    gpl-compatible: true
+  js:
+    //vjs.zencdn.net/5.0/video.min.js: { type: external, minified: true }
+  css:
+    component:
+      //vjs.zencdn.net/5.0/video-js.min.css: { type: external, minified: true }

@@ -1,0 +1,41 @@
+{#
+/**
+ * @file
+ * Theme override to display a menu.
+ *
+ * Available variables:
+ * - menu_name: The machine name of the menu.
+ * - items: A nested list of menu items. Each menu item contains:
+ *   - attributes: HTML attributes for the menu item.
+ *   - below: The menu item child items.
+ *   - title: The menu link title.
+ *   - url: The menu link url, instance of \Drupal\Core\Url
+ *   - localized_options: Menu link localized options.
+ */
+#}
+
+{#
+  Dropdowns
+#}
+<nav class="z-depth-0" role="navigation">
+  <div class="nav-wrapper">
+
+    <a href="/" title="{{ 'Home'|t }}" rel="home" class="brand-logo left">PatsFilm</a>
+
+    <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="material-icons">menu</i></a>
+    {#
+      Desktop navigation
+    #}
+    <ul class="right hide-on-med-and-down">
+      <li><a href="/search">Search</a></li>
+    </ul>
+    {#
+      Mobile Navigation
+    #}
+    <ul class="side-nav" id="mobile-nav">
+      <li><a href="/">Home</a></li>
+      <li><a href="/search">Search</a></li>
+
+    </ul>
+  </div>
+</nav>

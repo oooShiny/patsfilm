@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * Theme override of an image.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the img tag.
+ * - style_name: (optional) The name of the image style applied.
+ *
+ * @see template_preprocess_image()
+ */
+#}
+
+{# Add responsive-img class to most images to make 'em responsive. #}
+{% if style_name != 'mini_50x50_' and style_name != 'media_library' %}
+    {%
+    set classes = [
+      'responsive-img',
+    ]
+    %}
+{% endif %}
+{# Now add materialboxed class to certain images for lightbox effect. #}
+{% if style_name == 'responsive' %}
+    {%
+    set classes = classes|merge(['materialboxed'])
+    %}
+{% endif %}
+
+{# Print the img tag with its corresponding classes. #}
+<img{{ attributes.addClass(classes) }} />

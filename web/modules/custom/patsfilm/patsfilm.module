@@ -1,0 +1,53 @@
+<?php
+/**
+ * @file
+ * Custom overrides for PatsFilm specific functionality.
+ */
+
+use Drupal\views\ViewExecutable;
+
+/**
+ * Implements hook_theme().
+ */
+function patsfilm_theme($existing, $type, $theme, $path) {
+  return [
+    'field__field_video_link' => [
+      'render element' => 'content',
+      'base hook' => 'field',
+      'template' => 'field--field-video-link',
+      'path' => drupal_get_path('module', 'patsfilm') . '/templates',
+    ],
+  ];
+}
+
+
+function patsfilm_preprocess_field(&$variables) {
+  if ($variables['field_name'] == 'field_video_link') {
+    $url = parse_url($variables['items'][0]['content']['#title']);
+    $path = explode('/', $url['path']);
+    $variables['provider'] = $url['host'];
+    $variables['video_id'] = end($path);
+  }
+}
+
+function patsfilm_preprocess_page(&$variables) {
+  if (isset($variables['node'])) {
+    $type = $variables['node']->getType();
+    if ($type == 'video') {
+      $variables['#attached']['library'][] = 'patsfilm/muse-video';
+    }
+  }
+}
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function patsfilm_views_pre_render(ViewExecutable $view) {
+  $views_list = [
+    'video_list',
+    'play_search',
+  ];
+  if (isset($view) && in_array($view->storage->id(), $views_list)) {
+    $view->element['#attached']['library'][] = 'patsfilm/muse-video';
+  }
+}

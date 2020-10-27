@@ -1,0 +1,4 @@
+muse-video:
+  header: true
+  js:
+    https://muse.ai/static/js/embed-player.min.js: { type: external, minified: true }

@@ -1,0 +1,409 @@
+a {
+  color: darkblue;
+}
+.paragraph--type--neural-image {
+    float: left;
+    padding-right: 0.5em;
+}
+
+.field--name-field-neural-style img {
+    border: 5px solid black;
+}
+
+.field--name-field-neural-style {
+    position: relative;
+    top: -70px;
+}
+
+article.node--type-neural-image {
+    clear: both;
+}
+
+.parallax img,
+.overlay img {
+    display: block;
+}
+
+/* Heading Size Overrides */
+h1 {
+    font-size: 3rem;
+}
+h2 {
+    font-size: 2rem;
+}
+h3 {
+    font-size: 1rem;
+    font-weight: bold;
+}
+/* Except for blogs */
+.node--type-blog-post h2 {
+    font-size: 3.56rem;
+}
+
+.node--type-blog-post h3 {
+    font-size: 2.92rem;
+    font-weight: normal;
+}
+
+.node--type-blog-post #block-materialize-content ul,
+.node--type-blog-post #block-materialize-content ul li {
+    list-style-type: circle;
+}
+.node--type-blog-post main ul {
+    margin-left: 1em;
+    padding-left: 1em;
+}
+
+ul#slide-out,
+ul#slide-out ul {
+    margin-left: 0;
+    list-style-type: none !important;
+}
+
+
+.node--type-blog-post ul.tabs {
+    margin-left: 0;
+}
+
+.card.small {
+    max-height: 300px;
+    height: auto;
+}
+
+.card.loss {
+  border: 1px solid red;
+}
+
+.card.win {
+  border: 1px solid green;
+}
+
+select {
+    display: block;
+    width: auto;
+}
+
+.theme-selector.clearfix {
+    clear: none;
+}
+
+div#block-experiencesliders {
+    z-index: 100;
+}
+
+tr.highlights-true i.material-icons,
+.inline-icon {
+    display: inline;
+    vertical-align: text-top;
+}
+
+table i.material-icons {
+  line-height: 0.25;
+  vertical-align: middle;
+}
+
+.table-like {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* clear fix */
+.table-like:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+/* ---- vertical table-like ---- */
+
+.table-like__item {
+    width: 100%;
+    clear: both;
+}
+
+
+.table-like__item > * {
+    display: inline-block;
+    padding: 4px 4px;
+    width: 24%;
+}
+
+table.sorttable th.header {
+    cursor: pointer;
+}
+
+th.header.headerSortDown,
+th.header.headerSortUp {
+    text-decoration: underline;
+    text-decoration-color: red;
+}
+
+div#sorts .btn {
+    width: 24%;
+}
+
+
+.parallax-overlay {
+    z-index: 1;
+    position: relative;
+    top: 12rem;
+    max-width: 80%;
+    color: white;
+    font-weight: 200;
+    margin: 0 auto;
+}
+
+.img-overlay {
+    z-index: 1;
+    position: relative;
+    top: 2rem;
+    max-width: 80%;
+    color: white;
+    font-weight: 200;
+    margin: 0 auto;
+}
+
+.img-overlay h1 {
+    font-size: 230%;
+}
+
+.parallax,
+.overlay {
+    background-color: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+h1.overlay-title {
+    font-weight: 200;
+}
+
+.parallax img {
+    opacity: 0.6;
+}
+.overlay img {
+    opacity: 0.4;
+    position: absolute;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.overlay-container {
+    position: relative;
+    overflow: hidden;
+    height: 250px;
+}
+
+.card-image {
+    background: black;
+}
+
+.card-image img {
+    opacity: 0.5;
+}
+
+div.blog-card .card-image {
+    height: 200px !important;
+}
+
+div.blog-card .card-content {
+    height: 100px !important;
+}
+
+nav.pager ul a {
+    color: #002244;
+}
+
+li.pager__item.is-active {
+    background: #eeeeee;
+}
+
+.cloud {
+    float: right;
+}
+
+.col.s12.m1.bump {
+    padding-top: 5em;
+}
+
+.activator {
+    cursor: pointer;
+}
+
+table.sortable th {
+    cursor: pointer;
+}
+
+.collapsible-body.padded {
+    padding: 2rem;
+}
+
+#block-playersinvolved .facets-widget-checkbox {
+    max-height: 10em;
+    overflow: scroll;
+}
+
+p.has-drop-cap {
+    min-height: 8.4em;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+tfoot.table-totals {
+    border-top: 1px solid #d0d0d0;
+}
+
+img.updown-arrow {
+    height: .75em;
+}
+
+.nav-wrapper.pinned-to-top.pinned {
+    height: auto;
+    width: 100%;
+    left: 0;
+    z-index: 99;
+}
+
+.node--type-blog-post #block-materialize-content nav ul li {
+    list-style-type: none;
+}
+
+.nav-wrapper.new-england-patriots-red {
+    border: none;
+}
+
+blockquote.wp-block-quote {
+    font-style: italic;
+}
+
+.views-row a.btn {
+    margin-top: 1em;
+}
+
+a {
+    cursor: pointer;
+}
+
+.fixed-action-btn ul li {
+    list-style-type: none !important;
+}
+
+.byline,
+.footnote {
+    font-style: italic;
+    font-size: 85%;
+    padding: 1em;
+}
+
+.footnote {
+    border-top: 1px solid lightgray;
+}
+
+ul.collapsible, ul.collapsible li {
+    list-style: none !important;
+}
+
+.card .card-action a:hover, a:hover {
+    text-decoration: underline;
+    text-decoration-color: darkblue;
+}
+
+.pager-block-wrapper .pager-block a {
+  border: none;
+}
+
+.pager-prev-node .pager-suffix, .pager-next-node .pager-prefix {
+  display: none;
+}
+
+li.collection-header {
+  font-size: 150%;
+  font-weight: 300;
+}
+
+.collection-item span.title {
+  font-weight: 500;
+  font-size: 110%;
+}
+
+div.facets-widget-range_slider>span {
+  display: none;
+}
+
+.simple {
+  font-weight: 300;
+}
+.no-pad-top {
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.views-field.views-field-passer-rating {
+  border-right: 1px solid #d0d0d0;
+}
+
+.card-panel.calendar .row {
+  border-bottom: 1px solid #adadad;
+}
+
+.collapsible li.collection-header {
+  padding: 10px 20px;
+}
+
+.collection-header a.btn {
+  font-size: 60%;
+}
+
+.tabs .tab a {
+  border: 2px solid #C60C30;
+  color: #002244;
+}
+
+.tabs a.active {
+  background: #002244;
+  color: white;
+  border: 2px solid #C60C30;
+}
+
+.tabs .tab a:hover {
+  color: #C60C30;
+}
+
+.toolbar-icon.toolbar-icon-menu-link-content32d784ff-926c-4038-a489-f5cdc033f09e:before {
+  background-image: url('../icons/helmet.png');
+}
+
+.card.small .card-content {
+  height: 200px;
+}
+.white-text p a {
+  color: white;
+  text-decoration: underline;
+}
+
+.page-footer a {
+  color: white;
+  text-decoration: underline;
+}
+
+a.btn {
+  text-decoration: none !important;
+}
+
+.game-header {
+  height: 30em;
+  background-size: cover;
+}
+
+.views-field-nid, .views-field-brady-attempts {
+  border-left: 1px solid lightgrey;
+}
+
+

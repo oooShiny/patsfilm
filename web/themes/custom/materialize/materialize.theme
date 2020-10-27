@@ -1,0 +1,1272 @@
+<?php
+
+use Drupal\node\Entity\Node;
+use Drupal\views\Views;
+use Drupal\taxonomy\Entity\Term;
+use Drupal\media\Entity\Media;
+
+/**
+ * Implements hook_form_system_theme_settings_alter().
+ */
+function materialize_form_system_theme_settings_alter(&$form, Drupal\Core\Form\FormStateInterface $form_state) {
+
+  $form['materialize_settings'] = array(
+    '#type' => 'details',
+    '#open' => TRUE,
+    '#title' => t('Materialize Settings'),
+    '#description' => t('Change your theme color settings here.'),
+  );
+
+  // Color Settings.
+  $form['materialize_settings']['color'] = array(
+    '#type' => 'details',
+    '#title' => t('Materialize Color Settings'),
+  );
+  // Header Color Settings.
+  $form['materialize_settings']['color']['header_bg_color'] = array(
+    '#type' => 'color',
+    '#title' => t('Header Background Color'),
+    '#default_value' => theme_get_setting('header_bg_color', 'materialize'),
+  );
+  $form['materialize_settings']['color']['header_text_color'] = array(
+    '#type' => 'color',
+    '#title' => t('Header Text Color'),
+    '#default_value' => theme_get_setting('header_text_color', 'materialize'),
+  );
+  // Body Color Settings.
+  $form['materialize_settings']['color']['body_bg_color'] = array(
+    '#type' => 'color',
+    '#title' => t('Body Background Color'),
+    '#default_value' => theme_get_setting('body_bg_color', 'materialize'),
+  );
+  // Footer Color Settings.
+  $form['materialize_settings']['color']['footer_bg_color'] = array(
+    '#type' => 'color',
+    '#title' => t('Footer Background Color'),
+    '#default_value' => theme_get_setting('footer_bg_color', 'materialize'),
+  );
+  $form['materialize_settings']['color']['footer_text_color'] = array(
+    '#type' => 'color',
+    '#title' => t('Footer Text Color'),
+    '#default_value' => theme_get_setting('footer_text_color', 'materialize'),
+  );
+  $form['materialize_settings']['footer']['footer_copyright'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Footer Copyright Text'),
+    '#default_value' => theme_get_setting('footer_copyright', 'materialize'),
+    '#description' => t('Example: <em>&copy; ' . date('Y') . ' [Footer Copyright Text]</em>'),
+  );
+
+}
+
+/**
+ * Implements hook_preprocess_page() to add variables to page.html.twig template.
+ */
+function materialize_preprocess_page(&$variables) {
+  $variables['header_bg'] = theme_get_setting('header_bg_color','materialize');
+  $variables['header_txt'] = theme_get_setting('header_text_color','materialize');
+  $variables['footer_bg'] = theme_get_setting('footer_bg_color','materialize');
+  $variables['footer_txt'] = theme_get_setting('footer_text_color','materialize');
+  $variables['copyright'] = theme_get_setting('footer_copyright', 'materialize');
+  if (isset($_GET['f'])) {
+    foreach ($_GET['f'] as $filter) {
+      $filter_parts = explode(':', $filter);
+      $variables['query'][] = $filter_parts[0];
+      $filter = array_shift($filter_parts);
+      if (count($filter_parts) > 2) {
+        $variables['filters'][$filter] = [
+          'var' => implode(':', $filter_parts),
+          'name' => str_replace('_', ' ', $filter)
+        ];
+      }
+      else {
+        $variables['filters'][$filter] = [
+          'var' => $filter_parts[0],
+          'name' => str_replace('_', ' ', $filter)
+        ];
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_html() to add variables to html.html.twig template.
+ */
+function materialize_preprocess_html(&$variables) {
+  $variables['body_bg'] = theme_get_setting('body_bg_color','materialize');
+  $variables['page']['#attached']['library'][] = 'materialize/parallax-init';
+  $variables['page']['#attached']['library'][] = 'materialize/font-awesome';
+}
+
+/**
+ * Implements hook_page_attachments_alter() to add library code to specific pages.
+ */
+function materialize_page_attachments_alter(&$page){
+  $path = $current_path = \Drupal::service('path.current')->getPath();
+  if($path == '/node/596' || $path == '/node/614' || $path == '/node/684' || $path == '/brady-tds') {
+    $page['#attached']['library'][] = 'materialize/expandgifs';
+  }
+}
+
+/**
+ * Implements hook_preprocess_node() to add JS to Article pages.
+ */
+function materialize_preprocess_node(&$variables) {
+  $variables['elements']['#attached']['library'][] = 'materialize/parallax-init';
+  // Adding variables for schema metatags.
+  $node = $variables['node'];
+  if ($node->getType() == 'game') {
+    $variables['gamedate'] = $node->getTitle();
+
+    $opp = $node->get('field_opponent')->entity;
+    $variables['opp'] = $opp->getTitle();
+
+    $home_away = $node->get('field_home_away')->value;
+    if ($home_away == 'Home') {
+      $variables['stadium_img'] = 'foxboro.jpg';
+    }
+    else {
+      $opp_url = seoUrl($opp->getTitle());
+      $variables['stadium_img'] = $opp_url . '.jpg';
+    }
+
+    $location = explode(' ', $opp->getTitle());
+    $team = array_pop($location);
+    $variables['location'] = implode(' ', $location);
+
+    // Create pro-football-reference and NFL Gamepass links.
+
+    $game_date = new DateTime($node->get('field_date')->value);
+    // 201901130
+    $pfr_date = $game_date->format('Ymd');
+    $gp_date = $game_date->format('mdY');
+    $opp = Node::load($node->get('field_opponent')->target_id);
+    $gp_opp = explode(' ', $opp->getTitle());
+    if ($node->get('field_home_away')->value == 'Home') {
+      $pfr_home = 'nwe';
+      $gp_home = 'patriots';
+      $gp_away = strtolower(end($gp_opp));
+    }
+    else {
+      $pfr_home = $opp->get('field_pfr_id')->value;
+      $gp_home = strtolower(end($gp_opp));
+      $gp_away = 'patriots';
+    }
+    $variables['pfr_link'] = 'https://www.pro-football-reference.com/boxscores/' . $pfr_date . '0' . $pfr_home . '.htm';
+    $seasons = get_terms('season');
+    $game_season = $node->get('field_season')->target_id;
+    $variables['season'] = $seasons[$game_season];
+    $variables['gamepass_link'] = 'https://gamepass.nfl.com/game/'.$gp_away.'-at-'.$gp_home.'-on-' . $gp_date;
+
+    // Create podcast iframe link.
+    if (!$node->get('field_podcast_link')->isEmpty()) {
+      $link = explode('.com/', $node->get('field_podcast_link')->value);
+      $variables['podcast_link'] = $link[1];
+    }
+
+    if (!$node->get('field_boston_globe_articles')->isEmpty()) {
+      $a=1;
+      $variables['globe_articles'] = [
+        'pregame' => [],
+        'postgame' => []
+      ];
+
+      foreach ($node->get('field_boston_globe_articles')->getValue() as $article) {
+        $a=1;
+        $globe = Media::load($article['target_id']);
+        $weekday = $globe->get('field_globe_weekday')->value;
+        if ($globe->get('field_pregame_postgame')->value == 1) {
+          $variables['globe_articles']['pregame'][$weekday][] = $article;
+        }
+        else {
+          $variables['globe_articles']['postgame'][$weekday][] = $article;
+        }
+      }
+    }
+  }
+
+  if ($node->getType() == 'podcast_episode') {
+    $mp3 = $node->get('field_mp3')->value;
+    $variables['mp3'] = $mp3;
+    $link = $node->get('field_podcast_link')->value;
+    $link_bits = parse_url($link);
+    if ($link_bits['host'] == 'patriotsdynasty.info') {
+      $variables['game_link'] = $link;
+    }
+  }
+
+  if ($node->getType() == 'blog_post') {
+    $view = Views::getView('blog');
+    $view->setDisplay('block_1');
+    $view->execute();
+    $blogs = $view->result;
+    foreach ($blogs as $blog) {
+      $variables['top_blogs'][] = $blog->_entity->id();
+    }
+
+    /**
+     *
+     * Code for Patriots Recap Page
+     *
+     */
+    if ($node->id() == '596' || $node->id() == '602' || $node->id() == '684') {
+      unset($node->field_comments);
+      $variables['recap'] = TRUE;
+    }
+
+
+    /**
+     *
+     * Code for custom blog "Myth of the Easy AFC East."
+     *
+     **/
+
+    if ($node->id() == '588' && $variables['view_mode'] == 'full') {
+      $views = [
+        'nfl' => 'win_pct_nfl',
+        'afc' => 'win_pct_afc',
+        'nfc' => 'win_pct_nfc',
+        'afc_north' => 'win_pct_afc_north',
+        'afc_south' => 'win_pct_afc_south',
+        'afc_east' => 'win_pct_afc_east',
+        'afc_west' => 'win_pct_afc_west',
+        'nfc_north' => 'win_pct_nfc_north',
+        'nfc_south' => 'win_pct_nfc_south',
+        'nfc_east' => 'win_pct_nfc_east',
+        'nfc_west' => 'win_pct_nfc_west',
+        'reg' => 'win_pct_reg_season'
+      ];
+      $records = [];
+      // Get all win % vs groups as text.
+      foreach ($views as $group => $view) {
+        $rec_view = Views::getView('record_vs_group');
+        $rec_view->setDisplay($view);
+        $rec_view->execute();
+        $record = $rec_view->result;
+        $wins = $record[1]->node__field_result_field_result_value_1;
+        $losses = $record[0]->node__field_result_field_result_value_1;
+        $records[$group]['win_loss'] = $wins . ' - ' . $losses;
+        $records[$group]['w'] = $wins;
+        $records[$group]['l'] = $losses;
+        $records[$group]['win_pct'] = $wins/($wins + $losses);
+      }
+      $variables['record'] = [
+        'nfl' => $records['nfl'],
+        'conf' => [
+          'afc' => $records['afc'],
+          'nfc' => $records['nfc'],
+        ],
+        'div' => [
+          'AFC North' => $records['afc_north'],
+          'AFC South' => $records['afc_south'],
+          'AFC East' => $records['afc_east'],
+          'AFC West' => $records['afc_west'],
+          'NFC North' => $records['nfc_north'],
+          'NFC South' => $records['nfc_south'],
+          'NFC East' => $records['nfc_east'],
+          'NFC West' => $records['nfc_west'],
+        ]
+      ];
+      uasort($variables['record']['div'], function($a, $b) {
+        return $b['win_pct'] <=> $a['win_pct'];
+      });
+
+      $variables['record']['loss_pct_nfl'] = 1 - $variables['record']['nfl']['win_pct'];
+      // Get seasons where there were two 10+ win teams in a division.
+      $variables['tenwins'] = get_10_win_teams();
+      /**
+       * Get all division records since 2000.
+       */
+      $all_records = get_records();
+
+      // Pull team records out of the $all_records array.
+      $team_records = $all_records['teams'];
+      unset($all_records['teams']);
+      $variables['record']['team_records'] = $team_records;
+      foreach ($all_records as $division => $data) {
+        $win_pct = $data['w'] / ($data['w'] + $data['l'] + $data['t']);
+        $all_records[$division]['pct'] = $win_pct;
+      }
+      /**
+       * Get division records without Patriots.
+       */
+      $div_records = $all_records;
+      // Sort Divisions by win percentage.
+      uasort($div_records, function($a, $b) {
+        return $b['pct'] <=> $a['pct'];
+      });
+      // Set division records with array of all divisions ordered by win %.
+      $variables['record']['division_records'] = $div_records;
+
+      /**
+       * Add the Patriots (regular season) record back in.
+       */
+      $div_with_pats = $all_records;
+      // Add Patriots regular season record to AFC East standings.
+      $div_with_pats['AFC East']['w'] += $records['reg']['w'];
+      $div_with_pats['AFC East']['l'] += $records['reg']['l'];
+      // Recalculate win % with new numbers.
+      $div_with_pats['AFC East']['pct'] = $div_with_pats['AFC East']['w'] / ($div_with_pats['AFC East']['w'] + $div_with_pats['AFC East']['l'] + $div_with_pats['AFC East']['t']);
+      // Sort Divisions by win percentage.
+      uasort($div_with_pats, function($a, $b) {
+        return $b['pct'] <=> $a['pct'];
+      });
+      $variables['record']['div_with_pats'] = $div_with_pats;
+
+      /**
+       * Take out division winners' records for each season.
+       */
+      $div_minus_winners = $all_records;
+      foreach ($div_minus_winners as $div => $data) {
+        $w = $div_minus_winners[$div]['w'] - $data['winner']['w'];
+        $l = $div_minus_winners[$div]['l'] - $data['winner']['l'];
+        $t = $div_minus_winners[$div]['t'] - $data['winner']['t'];
+        $div_minus_winners[$div] = [
+          'w' => $w,
+          'l' => $l,
+          't' => $t,
+          'pct' => $w / ($w + $l + $t)
+        ];
+      }
+      // Sort Divisions by win percentage.
+      uasort($div_minus_winners, function($a, $b) {
+        return $b['pct'] <=> $a['pct'];
+      });
+      $variables['record']['div_minus_winners'] = $div_minus_winners;
+
+      /**
+       * Take out best team from each division.
+       */
+      $div_minus_best = $all_records;
+      $best_teams = [];
+      foreach ($team_records as $team => $data) {
+        if (!empty($best_teams[$data['div']])) {
+          if ($best_teams[$data['div']]['pct'] < $data['pct']) {
+            $best_teams[$data['div']] = [
+              'team' => $team,
+              'w' => $data['w'],
+              'l' => $data['l'],
+              't' => $data['t'],
+              'pct' => $data['pct'],
+            ];
+          }
+        }
+        else {
+          $best_teams[$data['div']] = [
+            'team' => $team,
+            'w' => $data['w'],
+            'l' => $data['l'],
+            't' => $data['t'],
+            'pct' => $data['pct'],
+          ];
+        }
+      }
+      foreach ($best_teams as $div => $data) {
+        if ($div !== 'AFC East') {
+          $div_minus_best[$div]['w'] -= $data['w'];
+          $div_minus_best[$div]['l'] -= $data['l'];
+          $div_minus_best[$div]['t'] -= $data['t'];
+          $div_minus_best[$div]['pct'] = $div_minus_best[$div]['w'] / ($div_minus_best[$div]['w'] + $div_minus_best[$div]['l'] + $div_minus_best[$div]['t']);
+          $team_name = str_replace('-', ' ', $data['team']);
+          $div_minus_best[$div]['team'] = [
+            'name' => ucwords($team_name),
+            'rec' => $data['w'] . ' - ' . $data['l'] . ' - ' . $data['t'],
+            'pct' => $data['w'] / ($data['w'] + $data['l'] + $data['t'])
+          ];
+        }
+        else {
+          $div_minus_best['AFC East']['team'] = [
+            'name' => 'New England Patriots',
+            'rec' => $records['reg']['w'] . ' - ' . $records['reg']['l'] . ' - 0',
+            'pct' => $records['reg']['w'] / ($records['reg']['w'] + $records['reg']['l'])
+          ];
+        }
+      }
+      // Sort Divisions by win percentage.
+      uasort($div_minus_best, function($a, $b) {
+        return $b['pct'] <=> $a['pct'];
+      });
+      $variables['record']['div_minus_best'] = $div_minus_best;
+
+    }
+  }
+  // Get Brady stats for QB Nodes.
+  if ($node->getType() == 'quarterback') {
+    $team_id =$node->get('field_qb_team')->target_id;
+    $team = Node::load($team_id)->getTitle();
+    $variables['team_css'] = strtolower(str_replace(' ', '-', $team));
+    $qb = array(
+      'reg' => array(
+        'att' => $node->get('field_reg_att')->value,
+        'comp' => $node->get('field_reg_comp')->value,
+        'tds' => $node->get('field_reg_pass_tds')->value,
+        'ints' => $node->get('field_reg_pass_ints')->value,
+        'yds' => $node->get('field_reg_pass_yards')->value,
+      ),
+      'poff' => array(
+        'att' => $node->get('field_poff_att')->value,
+        'comp' => $node->get('field_poff_comp')->value,
+        'tds' => $node->get('field_poff_pass_tds')->value,
+        'ints' => $node->get('field_poff_pass_ints')->value,
+        'yds' => $node->get('field_poff_pass_yds')->value,
+
+      )
+    );
+
+    $brady = [];
+    // Hard coded stats for now.
+    $variables['brady']['reg']['gwd'] = 51;
+    $variables['brady']['reg']['q4c'] = 40;
+    $variables['brady']['poff']['gwd'] = 10;
+    $variables['brady']['poff']['q4c'] = 7;
+
+    $connection = \Drupal::database();
+
+
+    // Get Brady's Regular Season TDs.
+    $query = $connection->query('SELECT SUM(td.field_brady_tds_value) FROM node__field_brady_tds td
+              LEFT JOIN node__field_week w on w.entity_id = td.entity_id
+              WHERE w.field_week_target_id < 36');
+    $variables['brady']['reg']['tds'] = $query->fetchField();
+
+    // Get Brady's Regular Season INTs.
+    $query = $connection->query('SELECT SUM(ints.field_brady_ints_value) FROM node__field_brady_ints ints
+              LEFT JOIN node__field_week w on w.entity_id = ints.entity_id
+              WHERE w.field_week_target_id < 36');
+    $variables['brady']['reg']['ints'] = $query->fetchField();
+
+    // Get Brady's Regular Season Yards.
+    $query = $connection->query('SELECT SUM(yd.field_brady_yards_value) FROM node__field_brady_yards yd
+              LEFT JOIN node__field_week w on w.entity_id = yd.entity_id
+              WHERE w.field_week_target_id < 36');
+    $variables['brady']['reg']['yds'] = $query->fetchField();
+
+    // Get Brady's Regular Season Attempts
+    $query = $connection->query('SELECT SUM(att.field_brady_attempts_value) FROM node__field_brady_attempts att
+              LEFT JOIN node__field_week w on w.entity_id = att.entity_id
+              WHERE w.field_week_target_id < 36');
+    $brady['reg']['attempts'] = $query->fetchField();
+
+    // Get Brady's Regular Season Completions
+    $query = $connection->query('SELECT SUM(comp.field_brady_completions_value) FROM node__field_brady_completions comp
+              LEFT JOIN node__field_week w on w.entity_id = comp.entity_id
+              WHERE w.field_week_target_id < 36');
+    $brady['reg']['completions'] = $query->fetchField();
+
+    // Calculations:
+
+    // Regular Season Completion Percent.
+    $variables['brady']['reg']['comp_pct'] = round(($brady['reg']['completions'] / $brady['reg']['attempts']) * 100, 1);
+    // Regular Season TD Percent.
+    $variables['brady']['reg']['td_pct'] = round(($variables['brady']['reg']['tds'] / $brady['reg']['attempts']) * 100, 1);
+    $variables['otherqb']['reg']['td_pct'] = round(($qb['reg']['tds'] / $qb['reg']['att']) * 100, 1);
+    // Regular Season Yards/Attempt.
+    $variables['brady']['reg']['ypa'] = round(($variables['brady']['reg']['yds'] / $brady['reg']['attempts']), 1);
+    $variables['otherqb']['reg']['ypa'] = round(($qb['reg']['yds'] / $qb['reg']['att']), 1);
+    // Regular Season Yards/Completion.
+    $variables['brady']['reg']['ypc'] = round(($variables['brady']['reg']['yds'] / $brady['reg']['completions']), 1);
+    $variables['otherqb']['reg']['ypc'] = round(($qb['reg']['yds'] / $qb['reg']['comp']), 1);
+    // Regular Season QB Rating.
+    $variables['brady']['reg']['qbr'] = qb_rating($brady['reg']['completions'], $brady['reg']['attempts'], $variables['brady']['reg']['yds'], $variables['brady']['reg']['tds'], $variables['brady']['reg']['ints']);
+    $variables['otherqb']['reg']['qbr'] = qb_rating($qb['reg']['comp'], $qb['reg']['att'], $qb['reg']['yds'], $qb['reg']['tds'], $qb['reg']['ints']);
+
+
+    // Get Brady's Playoff TDs.
+    $query = $connection->query('SELECT SUM(td.field_brady_tds_value) FROM node__field_brady_tds td
+              LEFT JOIN node__field_week w on w.entity_id = td.entity_id
+              WHERE w.field_week_target_id > 35');
+    $variables['brady']['poff']['tds'] = $query->fetchField();
+
+    // Get Brady's Playoff INTs.
+    $query = $connection->query('SELECT SUM(ints.field_brady_ints_value) FROM node__field_brady_ints ints
+              LEFT JOIN node__field_week w on w.entity_id = ints.entity_id
+              WHERE w.field_week_target_id > 35');
+    $variables['brady']['poff']['ints'] = $query->fetchField();
+
+    // Get Brady's Playoff Yards.
+    $query = $connection->query('SELECT SUM(yd.field_brady_yards_value) FROM node__field_brady_yards yd
+              LEFT JOIN node__field_week w on w.entity_id = yd.entity_id
+              WHERE w.field_week_target_id > 35');
+    $variables['brady']['poff']['yds'] = $query->fetchField();
+
+    // Get Brady's Playoff Attempts
+    $query = $connection->query('SELECT SUM(att.field_brady_attempts_value) FROM node__field_brady_attempts att
+              LEFT JOIN node__field_week w on w.entity_id = att.entity_id
+              WHERE w.field_week_target_id > 35');
+    $brady['poff']['attempts'] = $query->fetchField();
+
+    // Get Brady's Playoff Completions
+    $query = $connection->query('SELECT SUM(comp.field_brady_completions_value) FROM node__field_brady_completions comp
+              LEFT JOIN node__field_week w on w.entity_id = comp.entity_id
+              WHERE w.field_week_target_id > 35');
+    $brady['poff']['completions'] = $query->fetchField();
+
+
+    $query = $connection->query('SELECT COUNT(*) FROM node__field_result res
+              LEFT JOIN node__field_week w on w.entity_id = res.entity_id
+              WHERE w.field_week_target_id > 38');
+    $variables['brady']['super_bowls'] = $query->fetchField();
+
+    $query = $connection->query('SELECT COUNT(*) FROM node__field_result res
+              LEFT JOIN node__field_week w on w.entity_id = res.entity_id
+              WHERE w.field_week_target_id > 38
+              AND res.field_result_value = :win', [':win' => 'Win']);
+    $variables['brady']['super_bowl_wins'] = $query->fetchField();
+
+    // Playoff Completion Percent.
+    $variables['brady']['poff']['comp_pct'] = round(($brady['poff']['completions'] / $brady['poff']['attempts']) * 100, 1);
+    // Playoff TD Percent.
+    $variables['brady']['poff']['td_pct']= round(($variables['brady']['poff']['tds'] / $brady['poff']['attempts']) * 100, 1);
+    $variables['otherqb']['poff']['td_pct']= round(($qb['poff']['tds'] / $qb['poff']['att']) * 100, 1);
+
+    // Playoff Yards/Attempt.
+    $variables['brady']['poff']['ypa']= round(($variables['brady']['poff']['yds'] / $brady['poff']['attempts']), 1);
+    $variables['otherqb']['poff']['ypa']= round(($qb['poff']['yds'] / $qb['poff']['att']), 1);
+
+    // Playoff Yards/Completion.
+    $variables['brady']['poff']['ypc']= round(($variables['brady']['poff']['yds'] / $brady['poff']['completions']), 1);
+    $variables['otherqb']['poff']['ypc']= round(($qb['poff']['yds'] / $qb['poff']['comp']), 1);
+
+    // Playoff QB Rating.
+    $variables['brady']['poff']['qbr'] = qb_rating($brady['poff']['completions'], $brady['poff']['attempts'], $variables['brady']['poff']['yds'], $variables['brady']['poff']['tds'], $variables['brady']['poff']['ints']);
+    $variables['otherqb']['poff']['qbr'] = qb_rating($qb['poff']['comp'], $qb['poff']['att'], $qb['poff']['yds'], $qb['poff']['tds'], $qb['poff']['ints']);
+
+  }
+
+}
+
+/*
+ * Implements hook_preprocess_views_view_table() to create @teams array:
+ * @team_name
+ * @nid (node ID of team)
+ * @w (total wins)
+ * @l (total losses)
+ * @cnf (conference - afc/nfc)
+ */
+function materialize_preprocess_views_view_table(&$variables) {
+  $view = $variables['theme_hook_original'];
+  $id = $variables['view'];
+  $view_id = $id->id();
+
+
+  if ($view == 'views_view_table__team_record_detail') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    $title = $node->get('title')->value;
+
+    $path = \Drupal::request()->getPathInfo();
+    $variables['team_path'] = substr($path, 6);
+    $variables['team_name'] = _get_team_name($title);
+  }
+  if ($view == 'views_view_table__games') {
+    // If $_GET is set, we have filters applied to the view.
+    if ($_GET) {
+      $filters = array();
+      // Add Win/Loss filter if set.
+      if ($_GET['field_result_value'] != 'All') {
+        $filters['winloss'] = $_GET['field_result_value'];
+      }
+      // Add Home/Away filter if set.
+      if ($_GET['field_home_away_value'] != 'All') {
+        $filters['homeaway'] = $_GET['field_home_away_value'];
+      }
+      // Add Week filter if set.
+      if ($_GET['field_week_target_id'] != 'All') {
+        foreach ($_GET['field_week_target_id'] as $week) {
+          $term = \Drupal\taxonomy\Entity\Term::load($week);
+          $filters['weeks'][] = $term->getName();
+        }
+      }
+      // Add Seasons filter if set.
+      if ($_GET['season']) {
+        foreach ($_GET['season'] as $season) {
+          $term = \Drupal\taxonomy\Entity\Term::load($season);
+          $filters['seasons'][] = $term->getName();
+        }
+      }
+      // Add Pats score filter if set.
+      if (($_GET['pats_score_low'] != 0) || ($_GET['pats_score_high'] != 100)) {
+        $filters['patscore'] = 'Patriots score between ' . $_GET['pats_score_low'] . ' and ' . $_GET['pats_score_high'];
+      }
+
+      // Add Opponent score filter if set.
+      if (($_GET['opp_score_low'] != 0) || ($_GET['opp_score_high'] != 100)) {
+        $filters['oppscore'] = 'Opponent score between ' . $_GET['opp_score_low'] . ' and ' . $_GET['opp_score_high'];
+      }
+
+      $variables['filters'] = $filters;
+    }
+  }
+
+  if ($view == 'views_view_table__team_records') {
+    $teams = array();
+    $totals = array(
+      'nfl' => array(
+        'name' => 'NFL',
+        'w' => 0,
+        'l' => 0,
+        'style' => 'nfl'
+      ),
+      'afc' => array(
+        'name' => 'AFC',
+        'w' => 0,
+        'l' => 0,
+        'style' => 'afc'
+      ),
+      'afc_north' => array(
+        'name' => 'AFC North',
+        'w' => 0,
+        'l' => 0,
+        'style' => 'afc'
+      ),
+      'afc_south' => array(
+        'name' => 'AFC South',
+        'w' => 0,
+        'l' => 0,
+        'style' => 'afc'
+      ),
+      'afc_east' => array(
+        'name' => 'AFC East',
+        'w' => 0,
+        'l' => 0,
+        'style' => 'afc'
+      ),
+      'afc_west' => array(
+        'name' => 'AFC West',
+        'w' => 0,
+        'l' => 0,
+        'style' => 'afc'
+      ),
+      'nfc' => array(
+        'name' => 'NFC',
+        'w' => 0,
+        'l' => 0,
+        'style' => 'nfc'
+      ),
+      'nfc_north' => array(
+        'name' => 'NFC North',
+        'w' => 0,
+        'l' => 0,
+        'style' => 'nfc'
+      ),
+      'nfc_south' => array(
+        'name' => 'NFC South',
+        'w' => 0,
+        'l' => 0,
+        'style' => 'nfc'
+      ),
+      'nfc_east' => array(
+        'name' => 'NFC East',
+        'w' => 0,
+        'l' => 0,
+        'style' => 'nfc'
+      ),
+      'nfc_west' => array(
+        'name' => 'NFC West',
+        'w' => 0,
+        'l' => 0,
+        'style' => 'nfc'
+      ),
+    );
+    $current_team = '';
+    foreach ($variables['rows'] as $row) {
+      $name = (string)$row['columns']['title']['content'][0]['field_output']['#markup'];
+      if ($name != $current_team) {
+        $team_name = _get_team_name($name);
+        $teams[$name]['name'] = $team_name;
+        $teams[$name]['nid'] = (string)$row['columns']['nid']['content'][0]['field_output']['#markup'];
+        $teams[$name]['w'] = 0;
+        $teams[$name]['l'] = 0;
+        $teams[$name]['cnf'] = strtolower((string)$row['columns']['field_conference']['content'][0]['field_output']['#markup']);
+        $teams[$name]['div'] = strtolower((string)$row['columns']['field_division']['content'][0]['field_output']['#markup']);
+        $teams[$name]['style'] = strtolower(str_replace(' ', '-', $name));
+        $current_team = $name;
+      }
+
+      $result = (string)$row['columns']['field_result']['content'][0]['field_output']['#markup'];
+      if ($result == 'Win') {
+        $teams[$name]['w'] += 1;
+        $totals['nfl']['w'] += 1;
+        if ($teams[$name]['cnf'] == 'afc') {
+          $totals['afc']['w'] += 1;
+          $totals['afc_'.$teams[$name]['div']]['w'] += 1;
+        }
+        else {
+          $totals['nfc']['w'] += 1;
+          $totals['nfc_'.$teams[$name]['div']]['w'] += 1;
+        }
+      }
+      else {
+        $teams[$name]['l'] += 1;
+        $totals['nfl']['l'] += 1;
+        if ($teams[$name]['cnf'] == 'afc') {
+          $totals['afc']['l'] += 1;
+          $totals['afc_'.$teams[$name]['div']]['l'] += 1;
+        }
+        else {
+          $totals['nfc']['l'] += 1;
+          $totals['nfc_'.$teams[$name]['div']]['l'] += 1;
+        }
+
+      }
+    }
+    $variables['teams'] = $teams;
+    // Create percentages.
+    $nfl_pct = $totals['nfl']['w'] / ($totals['nfl']['w'] + $totals['nfl']['l']);
+    $afc_pct = $totals['afc']['w'] / ($totals['afc']['w'] + $totals['afc']['l']);
+    $nfc_pct = $totals['nfc']['w'] / ($totals['nfc']['w'] + $totals['nfc']['l']);
+
+    $afc_east_pct = $totals['afc_east']['w'] / ($totals['afc_east']['w'] + $totals['afc_east']['l']);
+    $afc_west_pct = $totals['afc_west']['w'] / ($totals['afc_west']['w'] + $totals['afc_west']['l']);
+    $afc_north_pct = $totals['afc_north']['w'] / ($totals['afc_north']['w'] + $totals['afc_north']['l']);
+    $afc_south_pct = $totals['afc_south']['w'] / ($totals['afc_south']['w'] + $totals['afc_south']['l']);
+
+    $nfc_east_pct = $totals['nfc_east']['w'] / ($totals['nfc_east']['w'] + $totals['nfc_east']['l']);
+    $nfc_west_pct = $totals['nfc_west']['w'] / ($totals['nfc_west']['w'] + $totals['nfc_west']['l']);
+    $nfc_north_pct = $totals['nfc_north']['w'] / ($totals['nfc_north']['w'] + $totals['nfc_north']['l']);
+    $nfc_south_pct = $totals['nfc_south']['w'] / ($totals['nfc_south']['w'] + $totals['nfc_south']['l']);
+
+
+    $totals['nfl']['pct'] = number_format(round($nfl_pct, 3), 3);
+    $totals['afc']['pct'] = number_format(round($afc_pct, 3), 3);
+    $totals['nfc']['pct'] = number_format(round($nfc_pct, 3), 3);
+
+    $totals['afc_east']['pct'] = number_format(round($afc_east_pct, 3), 3);
+    $totals['afc_west']['pct'] = number_format(round($afc_west_pct, 3), 3);
+    $totals['afc_north']['pct'] = number_format(round($afc_north_pct, 3), 3);
+    $totals['afc_south']['pct'] = number_format(round($afc_south_pct, 3), 3);
+
+    $totals['nfc_east']['pct'] = number_format(round($nfc_east_pct, 3), 3);
+    $totals['nfc_west']['pct'] = number_format(round($nfc_west_pct, 3), 3);
+    $totals['nfc_north']['pct'] = number_format(round($nfc_north_pct, 3), 3);
+    $totals['nfc_south']['pct'] = number_format(round($nfc_south_pct, 3), 3);
+
+    $variables['totals'] = $totals;
+  }
+
+    /**
+     *   Solr Search: Game Totals
+     */
+
+  if ($view == 'views_view_table__search_games') {
+    $wins = 0;
+    $losses = 0;
+    $score = [
+      'pats' => 0,
+      'opp' => 0
+    ];
+    $stats = [
+      'att' => 0,
+      'comp' => 0,
+      'yds' => 0,
+      'tds' => 0,
+      'int' => 0
+    ];
+    $games = 0;
+    foreach ($variables['view']->result as $id => $row) {
+      foreach ($variables['view']->field as $fid => $field) {
+        switch ($fid) {
+          case 'result':
+            $winloss = $field->getValue($row);
+            if ($winloss == 'Loss') {
+              $losses++;
+            }
+            elseif ($winloss == 'Win') {
+              $wins++;
+            }
+            $games++;
+            break;
+          case 'brady_completions':
+            $stats['comp'] += $field->getValue($row);
+            break;
+          case 'brady_attempts':
+            $stats['att'] += $field->getValue($row);
+            break;
+          case 'brady_yards':
+            $stats['yds'] += $field->getValue($row);
+            break;
+          case 'brady_tds':
+            $stats['tds'] += $field->getValue($row);
+            break;
+          case 'brady_ints':
+            $stats['int'] += $field->getValue($row);
+            break;
+          case 'opponent_score':
+            $score['opp'] += $field->getValue($row);
+            break;
+          case 'patriots_score':
+            $score['pats'] += $field->getValue($row);
+            break;
+        }
+      }
+    }
+    // Get averages and totals.
+    $variables['winloss'] = $wins . ' - ' . $losses;
+    $variables['winpct'] = $wins/($games);
+    $avgscore = [
+      'pats' => $score['pats']/$games,
+      'opp' => $score['opp']/$games,
+    ];
+    $variables['avgscore'] = round($avgscore['pats']) . ' - ' . round($avgscore['opp']);
+    $variables['passrating'] = passer_rating($stats['att'], $stats['comp'], $stats['yds'], $stats['tds'], $stats['int']);
+    $variables['att'] = $stats['att'];
+    $variables['comp'] = $stats['comp'];
+    $variables['yds'] = $stats['yds'];
+    $variables['tds'] = $stats['tds'];
+    $variables['int'] = $stats['int'];
+    $variables['avg_att'] = $stats['att']/$games;
+    $variables['avg_comp'] = $stats['comp']/$games;
+    $variables['avg_yds'] = $stats['yds']/$games;
+    $variables['avg_tds'] = $stats['tds']/$games;
+    $variables['avg_int'] = $stats['int']/$games;
+  }
+
+}
+
+function materialize_preprocess_views_view_fields(&$variables) {
+  $view = $variables['theme_hook_original'];
+  if ($view == 'views_view_fields__team_record_totals') {
+    $path = \Drupal::request()->getPathInfo();
+    $variables['team_path'] = substr($path, 6);
+
+    $full_name = $variables['fields']['field_opponent']->content->jsonSerialize();
+    $variables['team_name'] = _get_team_name($full_name);
+
+    $variables['team_tot_score'] = $variables['fields']['field_opponent_score']->content->jsonSerialize();
+    $variables['pats_tot_score'] = $variables['fields']['field_patriots_score']->content->jsonSerialize();
+    $variables['team_avg_score'] = $variables['fields']['field_opponent_score_1']->content->jsonSerialize();
+    $variables['pats_avg_score'] = $variables['fields']['field_patriots_score_1']->content->jsonSerialize();
+  }
+
+
+}
+
+function materialize_preprocess_views_view_field(&$variables) {
+  $field = $variables['theme_hook_original'];
+  if ($field == 'views_view_field__pod_mp3') {
+    $variables['mp3'] = '';
+  }
+}
+
+/*
+ * Implements hook_preprocess_views_view_unformatted()
+ */
+function materialize_preprocess_views_view_unformatted(&$variables) {
+  $view_name = $variables['view']->id();
+  $view = $variables['view'];
+  $rows = $view->result;
+  if ($view_name == 'podcast_listens') {
+    $titles = [];
+    $listens = [];
+    foreach ($rows as $row) {
+      $node = $row->_entity;
+      $titles[] = $node->label();
+      $listens['total'][] = $row->node__field_total_downloads_field_total_downloads_value;
+      $listens['first30'][] = $row->node__field_first_30_days_field_first_30_days_value;
+    }
+    $variables['episode_titles'] = $titles;
+    $variables['first30'] = $listens['first30'];
+    $variables['total'] = $listens['total'];
+  }
+  if ($view_name == 'games_by_temperature') {
+    $view = $variables['view'];
+    $rows = $view->result;
+    $temps = [];
+    foreach ($rows as $row) {
+      $entity = $row->_entity;
+      $temp = $entity->get('field_temperature')->value;
+      $pats = $entity->get('field_patriots_score')->value;
+      $opp = $entity->get('field_opponent_score')->value;
+      if ($temps[$temp]) {
+        $temps[$temp]['games'] += 1;
+        $temps[$temp]['pats'] += $pats;
+        $temps[$temp]['opp'] += $opp;
+      }
+      else {
+        $temps[$temp] = [
+          'games' => 1,
+          'pats' => $pats,
+          'opp' => $opp
+        ];
+      }
+    }
+    ksort($temps);
+    unset($temps[current(array_keys($temps))]);
+    $t = array_keys($temps);
+    $p = [];
+    $o = [];
+    foreach ($temps as $temp) {
+      $p[] = $temp['pats'];
+      $o[] = $temp['opp'];
+    }
+    $variables['temps'] = $t;
+    $variables['pats'] = $p;
+    $variables['opp'] = $o;
+  }
+  if ($view_name == 'record_vs_group') {
+    $display = $view->current_display;
+    foreach ($rows as $row) {
+      $result = strtolower($row->node__field_result_field_result_value);
+      $amount = $row->node__field_result_field_result_value_1;
+      $title_array = explode('_', $display);
+      $conf = strtoupper($title_array[2]);
+      if (isset($title_array[3])) {
+        $div = ' ' . ucfirst($title_array[3]);
+      }
+      else {
+        $div = '';
+      }
+      $variables['record']['title'] = $conf . $div;
+      $variables['record'][$result] = $amount;
+    }
+  }
+
+  if ($view_name == 'patriots_dominance_rating') {
+    $results = $variables['rows'];
+    $wins = 0;
+    $losses = 0;
+    $teams = [];
+    foreach ($results as $result) {
+      $game_node = Node::load($result['content']['#row']->nid);
+      $team_nid = $game_node->get('field_opponent')->target_id;
+      // Create array of teams.
+      if (!array_key_exists($team_nid, $teams)) {
+        $team_node = Node::load($team_nid);
+        $teams[$team_nid] = [
+          'name' => $team_node->getTitle(),
+          'wins' => 0,
+          'losses' => 0,
+          'mov' => 0,
+        ];
+      }
+
+      $wl = $game_node->get('field_result')->value;
+      if ($wl == 'Loss') {
+        $teams[$team_nid]['losses']++;
+      }
+      elseif ($wl == 'Win') {
+        $teams[$team_nid]['wins']++;
+      }
+      $pats_score = $game_node->get('field_patriots_score')->value;
+      $opp_score = $game_node->get('field_opponent_score')->value;
+
+      $teams[$team_nid]['mov'] += ($pats_score - $opp_score);
+    }
+    foreach ($teams as $id => $team) {
+      $teams[$id]['winpct'] = $team['wins'] / ($team['wins'] + $team['losses']);
+      $teams[$id]['mov'] = $team['mov'] / ($team['wins'] + $team['losses']);
+      $teams[$id]['dominance'] = $teams[$id]['winpct'] * $team['wins'] * $teams[$id]['mov'];
+    }
+    ksort($teams);
+    $variables['teams'] = $teams;
+  }
+  $result = $variables['view']->result[0];
+  $view = $variables['theme_hook_original'];
+
+  $nids = \Drupal::entityQuery('node')->condition('type','quarterback')->execute();
+  $qbs =  \Drupal\node\Entity\Node::loadMultiple($nids);
+  // Add Brady's regular season yard totals to list of leaders.
+  if (isset($result->node__field_brady_yards_field_brady_yards_value)) {
+    if ($view == 'views_view_unformatted__brady_s_records__block_1') {
+      foreach ($qbs as $qb) {
+        $yard_leaders[$qb->getTitle()] = $qb->get('field_reg_pass_yards')->value;
+      }
+    }
+    else {
+      foreach ($qbs as $qb) {
+        $yard_leaders[$qb->getTitle()] = $qb->get('field_poff_pass_yds')->value;
+      }
+    }
+    $yard_leaders['Tom Brady'] = $result->node__field_brady_yards_field_brady_yards_value;
+    arsort($yard_leaders);
+    $variables['leaders'] = array_slice($yard_leaders, 0, 5);
+  }
+  // Add Brady's regular season TD totals to list of leaders.
+  if (isset($result->node__field_brady_tds_field_brady_tds_value)) {
+    if ($view == 'views_view_unformatted__brady_s_records__block_3') {
+      foreach ($qbs as $qb) {
+        $td_leaders[$qb->getTitle()] = $qb->get('field_reg_pass_tds')->value;
+      }
+    }
+    else {
+      foreach ($qbs as $qb) {
+        $td_leaders[$qb->getTitle()] = $qb->get('field_poff_pass_tds')->value;
+      }
+    }
+    $td_leaders['Tom Brady'] = $result->node__field_brady_tds_field_brady_tds_value;
+    arsort($td_leaders);
+    $variables['leaders'] = array_slice($td_leaders, 0, 5);
+  }
+}
+/*
+ * Implements hook_form_views_exposed_form_alter() to change multi-select to
+ * checkboxes.
+ */
+function materialize_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  // Change the season multi-select to checkboxes.
+  if (isset($form['season'])) {
+    $form['season']['#type'] = 'checkboxes';
+  }
+  elseif (isset($form['field_week_target_id'])) {
+    $form['field_week_target_id']['#type'] = 'checkboxes';
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for node templates.
+ */
+function materialize_theme_suggestions_views_alter(array &$suggestions, array $variables) {
+  $suggestions[] = 'node__' . 'first';
+  $suggestions[] = 'node__' . 'second';
+}
+
+function _get_team_name($name) {
+  $team_name_array = explode(' ', (string)$name);
+  $team_name = array_pop($team_name_array);
+  return $team_name;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function materialize_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    $content_type = $node->bundle();
+    $suggestions[] = 'page__'.$content_type;
+  }
+}
+
+/*
+ * Implements hook_preprocess_paragraph().
+ */
+function materialize_preprocess_paragraph(&$variables) {
+  $paragraph = $variables['paragraph'];
+  $type = $paragraph->getType();
+
+  if ($type == 'row') {
+    $row_content = $paragraph->get('field_row_content');
+    $variables['content']['count'] = $row_content->count();
+  }
+
+  if ($type == 'qb_comparison') {
+    $nid = $paragraph->get('field_qb')->target_id;
+  }
+
+  if ($type == 'gif') {
+    $game = $paragraph->getParentEntity();
+    if ($game->getType() == 'game') {
+
+      $nid = $game->id();
+      $opponent = Node::load($game->get('field_opponent')->target_id)->getTitle();
+      $week = Term::load($game->get('field_week')->target_id)->getName();
+      $season = Term::load($game->get('field_season')->target_id)->getName();
+      $variables['content']['game'] = [
+        'id' => $nid,
+        'week' => $week,
+        'season' => $season,
+        'opponent' => $opponent,
+        'opp_score' => $game->get('field_opponent_score')->value,
+        'pats_score' => $game->get('field_patriots_score')->value,
+        'location' => $game->get('field_home_away')->value,
+        'result' => $game->get('field_result')->value,
+      ];
+    }
+    $variables['museid'] = $paragraph->get('field_muse_video_id')->value;
+  }
+
+}
+
+function qb_rating($comp, $att, $yds, $td, $int) {
+  $a = (($comp/$att) - 0.3) * 5;
+  $b = (($yds/$att) - 3) * .25;
+  $c = ($td/$att) * 20;
+  $d = 2.375 - (($int/$att) * 25);
+
+  $rating = (($a + $b + $c + $d) / 6) * 100;
+
+  if ($rating > 0) {
+    return round($rating, 1);
+  }
+  else {
+    return $rating = 0;
+  }
+}
+
+function materialize_preprocess_views_view_grouping(&$variables) {
+  $view = $variables['view'];
+  $variables['content'] = $variables['view']->style_plugin
+    ->renderGroupingSets($variables['rows'], $variables['grouping_level']);
+  $variables['content']['id'] = $view->id();
+}
+
+function seoUrl($string) {
+  //Lower case everything
+  $string = strtolower($string);
+  //Make alphanumeric (removes all other characters)
+  $string = preg_replace("/[^a-z0-9_\s-]/", "", $string);
+  //Clean up multiple dashes or whitespaces
+  $string = preg_replace("/[\s-]+/", " ", $string);
+  //Convert whitespaces and underscore to dash
+  $string = preg_replace("/[\s_]/", "-", $string);
+  return $string;
+}
+
+/**
+ * Returns an array of all records by team, organized by conference and division.
+ */
+function get_records() {
+  $team_nids = Drupal::entityQuery('node')->condition('type','team')->execute();
+  $team_nodes =  \Drupal\node\Entity\Node::loadMultiple($team_nids);
+
+  $divisions = get_terms('division');
+  $conferences = get_terms('conference');
+  $records = [];
+
+  $old_divisions = old_divisions();
+  foreach ($team_nodes as $node) {
+    $team_name = preg_replace('@[^a-z0-9-]+@','-', strtolower($node->getTitle()));
+    $w = 0;
+    $l = 0;
+    $t = 0;
+    // Get each Standing paragraph and total up yearly standings.
+    $standings = $node->field_team_standings->getValue();
+    foreach ($standings as $year) {
+      $conf = $conferences[$node->get('field_conference')->target_id];
+      $div = $divisions[$node->get('field_division')->target_id];
+      $p = \Drupal\paragraphs\Entity\Paragraph::load($year['target_id'] );
+      $w += $p->get('field_team_wins')->value;
+      $l += $p->get('field_team_losses')->value;
+      $t += $p->get('field_team_ties')->value;
+
+      // Check if this was before the 2002 division restructure.
+      if (in_array($p->get('field_season')->value, ['2000', '2001']) &&
+      array_key_exists($team_name, $old_divisions)) {
+        $conf = $old_divisions[$team_name]['conference'];
+        $div = $old_divisions[$team_name]['division'];
+      }
+
+      if ($p->get('field_division_winner')->value == 1) {
+        $records[$conf . ' ' . $div]['winner']['w'] += $p->get('field_team_wins')->value;
+        $records[$conf . ' ' . $div]['winner']['l'] += $p->get('field_team_losses')->value;
+        $records[$conf . ' ' . $div]['winner']['t'] += $p->get('field_team_ties')->value;
+      }
+      // Add totals to conference and division numbers.
+      $records[$conf . ' ' . $div]['w'] += $p->get('field_team_wins')->value;
+      $records[$conf . ' ' . $div]['l'] += $p->get('field_team_losses')->value;
+      $records[$conf . ' ' . $div]['t'] += $p->get('field_team_ties')->value;
+    }
+    $records['teams'][$team_name]['div'] = $conf . ' ' . $div;
+    $records['teams'][$team_name]['w'] = $w;
+    $records['teams'][$team_name]['l'] = $l;
+    $records['teams'][$team_name]['t'] = $t;
+    $records['teams'][$team_name]['pct'] = $w / ($w + $l + $t);
+
+  }
+  return $records;
+}
+
+/**
+ * @return array
+ */
+function get_10_win_teams() {
+  $team_nids = Drupal::entityQuery('node')->condition('type','team')->execute();
+  $team_nodes =  \Drupal\node\Entity\Node::loadMultiple($team_nids);
+
+  $divisions = get_terms('division');
+  $conferences = get_terms('conference');
+  $old_divisions = old_divisions();
+  $records = [];
+
+  foreach ($team_nodes as $node) {
+    $team_name = preg_replace('@[^a-z0-9-]+@','-', strtolower($node->getTitle()));
+    // Get each Standing paragraph and total up yearly standings.
+    $standings = $node->field_team_standings->getValue();
+    foreach ($standings as $year) {
+      $conf = $conferences[$node->get('field_conference')->target_id];
+      $div = $divisions[$node->get('field_division')->target_id];
+
+      $p = \Drupal\paragraphs\Entity\Paragraph::load($year['target_id'] );
+      $w = $p->get('field_team_wins')->value;
+      $s = $p->get('field_season')->value;
+
+      // Check if this was before the 2002 division restructure.
+      if (in_array($p->get('field_season')->value, ['2000', '2001']) &&
+        array_key_exists($team_name, $old_divisions)) {
+        $conf = $old_divisions[$team_name]['conference'];
+        $div = $old_divisions[$team_name]['division'];
+      }
+
+      if ($w > 9) {
+        $records[$conf . ' ' . $div][$s] += 1;
+      }
+    }
+  }
+  $winners = [];
+  foreach ($records as $div => $seasons) {
+    foreach ($seasons as $season => $wins) {
+      if ($wins > 1) {
+        $winners[$div]['seasons'][] = $season;
+        $winners[$div]['count'] += 1;
+      }
+      elseif ($div == 'AFC East' && $season !== '2002') {
+        $winners[$div]['seasons'][] = $season;
+        $winners[$div]['count'] += 1;
+      }
+    }
+
+  }
+  // Sort by number of seasons (descending).
+  uasort($winners, function($a, $b) {
+    return $b['count'] <=> $a['count'];
+  });
+  // Sort actual seasons for each division.
+  foreach ($winners as &$division) {
+    usort($division['seasons'], function($a, $b) {
+      return $a <=> $b;
+    });
+  }
+  return $winners;
+}
+
+function get_terms($taxonomy) {
+  $terms =\Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($taxonomy);
+  $term_data = [];
+  foreach ($terms as $term) {
+    $term_data[$term->tid] = $term->name;
+  }
+  return $term_data;
+}
+
+/**
+ * @return array of teams and their pre-2002 divisions.
+ */
+function old_divisions() {
+  return [
+    'arizona-cardinals' => ['conference' => 'NFC', 'division' => 'East'],
+    'indianapolis-colts' => ['conference' => 'AFC', 'division' => 'East'],
+    'seattle-seahawks' => ['conference' => 'AFC', 'division' => 'West'],
+    'new-orleans-saints'=> ['conference' => 'NFC', 'division' => 'West'],
+    'tennessee-titans'=> ['conference' => 'AFC', 'division' => 'Central'],
+    'baltimore-ravens'=> ['conference' => 'AFC', 'division' => 'Central'],
+    'pittsburgh-steelers'=> ['conference' => 'AFC', 'division' => 'Central'],
+    'jacksonville-jaguars'=> ['conference' => 'AFC', 'division' => 'Central'],
+    'cincinnati-bengals'=> ['conference' => 'AFC', 'division' => 'Central'],
+    'cleveland-browns'=> ['conference' => 'AFC', 'division' => 'Central'],
+    'minnesota-vikings'=> ['conference' => 'NFC', 'division' => 'Central'],
+    'tampa-bay-buccaneers'=> ['conference' => 'NFC', 'division' => 'Central'],
+    'green-bay-packers'=> ['conference' => 'NFC', 'division' => 'Central'],
+    'detroit-lions'=> ['conference' => 'NFC', 'division' => 'Central'],
+    'chicago-bears'=> ['conference' => 'NFC', 'division' => 'Central'],
+  ];
+}
+
+function passer_rating($att, $comp, $yds, $td, $int) {
+  $a = (($comp/$att) - 0.3) * 5;
+  $b = (($yds/$att) - 3) * .25;
+  $c = ($td/$att) * 20;
+  $d = 2.375 - (($int/$att) * 25);
+
+  $passer_rating = (($a + $b + $c + $d) / 6) * 100;
+
+  return $passer_rating;
+}
