@@ -1,0 +1,110 @@
+uuid: 0e9db84a-6b54-4a9c-9450-9f9330e79e23
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.video.field_personnel
+    - field.field.node.video.field_play_type
+    - field.field.node.video.field_pre_snap_movement
+    - field.field.node.video.field_season
+    - field.field.node.video.field_situation
+    - field.field.node.video.field_td_scored
+    - field.field.node.video.field_video_link
+    - field.field.node.video.field_week
+    - field.field.node.video.field_yards_gained
+    - node.type.video
+  module:
+    - link
+    - user
+id: node.video.default
+targetEntityType: node
+bundle: video
+mode: default
+content:
+  field_personnel:
+    weight: 6
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_play_type:
+    weight: 7
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_pre_snap_movement:
+    weight: 4
+    label: inline
+    settings:
+      format: yes-no
+      format_custom_true: ''
+      format_custom_false: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_season:
+    weight: 2
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_situation:
+    weight: 5
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_td_scored:
+    weight: 9
+    label: inline
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_video_link:
+    weight: 1
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_week:
+    weight: 3
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_yards_gained:
+    weight: 8
+    label: inline
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+    region: content
+  links:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

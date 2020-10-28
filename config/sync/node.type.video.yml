@@ -1,0 +1,17 @@
+uuid: 773006ce-0af0-42b1-ad1c-76271c6aeb7d
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Video
+type: video
+description: 'A video of a play from the Patriots All-22 game film.'
+help: ''
+new_revision: false
+preview_mode: 0
+display_submitted: false

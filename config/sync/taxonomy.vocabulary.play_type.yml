@@ -1,0 +1,8 @@
+uuid: 2e81778a-342b-47e1-8801-1812b7e81b65
+langcode: en
+status: true
+dependencies: {  }
+name: 'Play Type'
+vid: play_type
+description: ''
+weight: 0

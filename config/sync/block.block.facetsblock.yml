@@ -1,0 +1,34 @@
+uuid: 6318db76-4da6-4cfc-98e4-43e61c7f657c
+langcode: en
+status: true
+dependencies:
+  module:
+    - facets_block
+    - system
+  theme:
+    - materialize
+id: facetsblock
+theme: materialize
+region: left
+weight: 0
+provider: null
+plugin: facets_block
+settings:
+  id: facets_block
+  label: 'Search Filters'
+  provider: facets_block
+  label_display: '0'
+  show_title: true
+  exclude_empty_facets: true
+  facets_to_include:
+    'facet_block:season': 'facet_block:season'
+    'facet_block:week': 'facet_block:week'
+    'facet_block:personnel': 'facet_block:personnel'
+    'facet_block:play_type': 'facet_block:play_type'
+    'facet_block:pre_snap_movement': 'facet_block:pre_snap_movement'
+    'facet_block:td_scored': 'facet_block:td_scored'
+visibility:
+  request_path:
+    id: request_path
+    pages: /search
+    negate: false

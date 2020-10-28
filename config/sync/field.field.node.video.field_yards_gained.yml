@@ -1,0 +1,23 @@
+uuid: 38d3d167-a3ce-408a-8d3a-9282200f016d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_yards_gained
+    - node.type.video
+id: node.video.field_yards_gained
+field_name: field_yards_gained
+entity_type: node
+bundle: video
+label: 'Yards Gained'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

@@ -1,0 +1,29 @@
+uuid: f1633c0f-c4b3-4b3e-8018-bd774e532ba7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_week
+    - node.type.video
+    - taxonomy.vocabulary.week
+id: node.video.field_week
+field_name: field_week
+entity_type: node
+bundle: video
+label: Week
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      week: week
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

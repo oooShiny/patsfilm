@@ -1,0 +1,14 @@
+uuid: 27fb3139-ed38-4964-8139-8d64be9d8905
+name: PatsFilm
+mail: arbrown83@gmail.com
+slogan: ''
+page:
+  403: ''
+  404: ''
+  front: /node
+admin_compact_mode: false
+weight_select_max: 100
+langcode: en
+default_langcode: en
+_core:
+  default_config_hash: yTxtFqBHnEWxQswuWvkjE8mKw2t8oKuCL1q8KnfHuGE

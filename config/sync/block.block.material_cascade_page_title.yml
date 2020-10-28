@@ -1,0 +1,20 @@
+uuid: 4f8044f0-23fd-49f8-8d70-85c641644fb4
+langcode: en
+status: true
+dependencies:
+  theme:
+    - material_cascade
+_core:
+  default_config_hash: STPaWNgsDRpJZnUQmCwxG0OQ34o5weEKiy23ABG_UO4
+id: material_cascade_page_title
+theme: material_cascade
+region: content
+weight: -7
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  provider: core
+  label_display: '0'
+visibility: {  }

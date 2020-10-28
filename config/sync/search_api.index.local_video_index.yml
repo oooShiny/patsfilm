@@ -1,0 +1,109 @@
+uuid: 075e47f3-abaf-420e-b7d2-1f3bacb80280
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_personnel
+    - field.storage.node.field_play_type
+    - field.storage.node.field_pre_snap_movement
+    - field.storage.node.field_season
+    - field.storage.node.field_situation
+    - field.storage.node.field_td_scored
+    - field.storage.node.field_week
+    - search_api.server.local_database
+  module:
+    - taxonomy
+    - search_api
+    - node
+id: local_video_index
+name: 'Local Video Index'
+description: ''
+read_only: false
+field_settings:
+  personnel:
+    label: 'Personnel » Taxonomy term » Name'
+    datasource_id: 'entity:node'
+    property_path: 'field_personnel:entity:name'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_personnel
+      module:
+        - taxonomy
+  play_type:
+    label: 'Play Type » Taxonomy term » Name'
+    datasource_id: 'entity:node'
+    property_path: 'field_play_type:entity:name'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_play_type
+      module:
+        - taxonomy
+  pre_snap_movement:
+    label: 'Pre-Snap Movement'
+    datasource_id: 'entity:node'
+    property_path: field_pre_snap_movement
+    type: boolean
+    dependencies:
+      config:
+        - field.storage.node.field_pre_snap_movement
+  season:
+    label: 'Season » Taxonomy term » Name'
+    datasource_id: 'entity:node'
+    property_path: 'field_season:entity:name'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_season
+      module:
+        - taxonomy
+  situation:
+    label: 'Situation » Taxonomy term » Name'
+    datasource_id: 'entity:node'
+    property_path: 'field_situation:entity:name'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_situation
+      module:
+        - taxonomy
+  td_scored:
+    label: 'TD Scored'
+    datasource_id: 'entity:node'
+    property_path: field_td_scored
+    type: boolean
+    dependencies:
+      config:
+        - field.storage.node.field_td_scored
+  week:
+    label: 'Week » Taxonomy term » Name'
+    datasource_id: 'entity:node'
+    property_path: 'field_week:entity:name'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_week
+      module:
+        - taxonomy
+datasource_settings:
+  'entity:node':
+    bundles:
+      default: false
+      selected:
+        - video
+    languages:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  language_with_fallback: {  }
+  rendered_item: {  }
+tracker_settings:
+  default:
+    indexing_order: fifo
+options:
+  index_directly: true
+  cron_limit: 50
+server: local_database

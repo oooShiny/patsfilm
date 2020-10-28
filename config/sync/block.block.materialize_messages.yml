@@ -1,0 +1,22 @@
+uuid: 26158dc5-c591-40f3-945b-3d845d966d96
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - materialize
+_core:
+  default_config_hash: AzCthfcfTKSNb0lXQ-6NM9FbMbHNKghsaxwJMvwd4Ng
+id: materialize_messages
+theme: materialize
+region: header
+weight: 0
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  provider: system
+  label_display: '0'
+visibility: {  }

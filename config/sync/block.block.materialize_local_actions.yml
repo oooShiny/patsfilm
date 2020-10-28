@@ -1,0 +1,20 @@
+uuid: d641df95-556d-4128-aeed-bf4d60a906a8
+langcode: en
+status: true
+dependencies:
+  theme:
+    - materialize
+_core:
+  default_config_hash: JabulLWERvPnsz82R7gxTPDah04vGc1PgIEhRhCHXe0
+id: materialize_local_actions
+theme: materialize
+region: content
+weight: -7
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  provider: core
+  label_display: '0'
+visibility: {  }

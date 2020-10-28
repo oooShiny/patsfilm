@@ -1,0 +1,23 @@
+uuid: c1707a9b-c571-4250-a5f5-6ee62eabb205
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_td_scored
+    - node.type.video
+id: node.video.field_td_scored
+field_name: field_td_scored
+entity_type: node
+bundle: video
+label: 'TD Scored'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

@@ -1,0 +1,8 @@
+uuid: af9cab62-c0e3-4e7e-89cd-c40f473f2af8
+langcode: en
+status: true
+dependencies: {  }
+name: Situation
+vid: situation
+description: ''
+weight: 0

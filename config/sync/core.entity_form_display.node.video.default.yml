@@ -1,0 +1,152 @@
+uuid: a3e2eaa7-b368-4417-bc48-7ea196b2c36d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.video.field_personnel
+    - field.field.node.video.field_play_type
+    - field.field.node.video.field_pre_snap_movement
+    - field.field.node.video.field_season
+    - field.field.node.video.field_situation
+    - field.field.node.video.field_td_scored
+    - field.field.node.video.field_video_link
+    - field.field.node.video.field_week
+    - field.field.node.video.field_yards_gained
+    - node.type.video
+  module:
+    - field_group
+    - link
+third_party_settings:
+  field_group:
+    group_game_details:
+      children:
+        - field_season
+        - field_week
+      parent_name: ''
+      weight: 2
+      format_type: tab
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: open
+        required_fields: true
+      label: 'Game Details'
+    group_play_details:
+      children:
+        - field_play_type
+        - field_yards_gained
+        - field_td_scored
+      parent_name: ''
+      weight: 4
+      format_type: tab
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: open
+        required_fields: true
+      label: 'Play Details'
+    group_formation_details:
+      children:
+        - field_pre_snap_movement
+        - field_situation
+        - field_personnel
+      parent_name: ''
+      weight: 3
+      format_type: tab
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: open
+        required_fields: true
+      label: 'Formation Details'
+id: node.video.default
+targetEntityType: node
+bundle: video
+mode: default
+content:
+  field_personnel:
+    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_play_type:
+    weight: 7
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_pre_snap_movement:
+    weight: 4
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_season:
+    weight: 8
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_situation:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_td_scored:
+    weight: 9
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_video_link:
+    weight: 1
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_week:
+    weight: 9
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_yards_gained:
+    weight: 8
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 5
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  path: true
+  promote: true
+  sticky: true
+  uid: true

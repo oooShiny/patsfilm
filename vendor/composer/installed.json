@@ -1341,6 +1341,78 @@
         }
     },
     {
+        "name": "drupal/shield",
+        "version": "1.4.0",
+        "version_normalized": "1.4.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupalcode.org/project/shield.git",
+            "reference": "8.x-1.4"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/shield-8.x-1.4.zip",
+            "reference": "8.x-1.4",
+            "shasum": "0c3950fa9a2614958d5f7488da9ff357f794723e"
+        },
+        "require": {
+            "drupal/core": "^8.6 || ^9"
+        },
+        "require-dev": {
+            "drupal/key": "^1.0"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "drupal": {
+                "version": "8.x-1.4",
+                "datestamp": "1585608547",
+                "security-coverage": {
+                    "status": "covered",
+                    "message": "Covered by Drupal's security advisory policy"
+                }
+            },
+            "branch-alias": {
+                "dev-8.x-1.x": "1.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0-or-later"
+        ],
+        "authors": [
+            {
+                "name": "badjava",
+                "homepage": "https://www.drupal.org/user/83372"
+            },
+            {
+                "name": "chx",
+                "homepage": "https://www.drupal.org/user/9446"
+            },
+            {
+                "name": "geek-merlin",
+                "homepage": "https://www.drupal.org/user/229048"
+            },
+            {
+                "name": "japerry",
+                "homepage": "https://www.drupal.org/user/45640"
+            },
+            {
+                "name": "kalman.hosszu",
+                "homepage": "https://www.drupal.org/user/267481"
+            },
+            {
+                "name": "pkiraly",
+                "homepage": "https://www.drupal.org/user/352587"
+            }
+        ],
+        "description": "Creates a general shield for the site.",
+        "homepage": "https://www.drupal.org/project/shield",
+        "support": {
+            "source": "https://git.drupalcode.org/project/shield"
+        }
+    },
+    {
         "name": "egulias/email-validator",
         "version": "2.1.17",
         "version_normalized": "2.1.17.0",

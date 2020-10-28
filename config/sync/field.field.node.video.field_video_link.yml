@@ -1,0 +1,23 @@
+uuid: f1b19c56-c0a5-44ec-a4f6-af274bd7dc05
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_video_link
+    - node.type.video
+  module:
+    - link
+id: node.video.field_video_link
+field_name: field_video_link
+entity_type: node
+bundle: video
+label: 'Video Link'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 0
+field_type: link

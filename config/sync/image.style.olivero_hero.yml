@@ -1,0 +1,17 @@
+uuid: 7d61a282-5120-4d6c-9444-cc3f2542c3dc
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: y4K6WSKj-QPNffr1_74Ld_NbpzXayyddadHJbyZyXcM
+name: olivero_hero
+label: Hero
+effects:
+  dd07cd46-cdc0-4a28-b5f9-e23c072c8c48:
+    uuid: dd07cd46-cdc0-4a28-b5f9-e23c072c8c48
+    id: image_scale
+    weight: 1
+    data:
+      width: 1090
+      height: null
+      upscale: false

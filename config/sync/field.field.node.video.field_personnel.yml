@@ -1,0 +1,29 @@
+uuid: 83ab9651-531e-4007-895b-c3cdf88f8907
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_personnel
+    - node.type.video
+    - taxonomy.vocabulary.personnel
+id: node.video.field_personnel
+field_name: field_personnel
+entity_type: node
+bundle: video
+label: Personnel
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      personnel: personnel
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
