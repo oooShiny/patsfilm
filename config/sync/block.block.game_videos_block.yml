@@ -1,0 +1,33 @@
+uuid: ec1c6535-ab9f-4264-8b1e-595013f49239
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.game_videos
+  module:
+    - node
+    - views
+  theme:
+    - materialize
+id: game_videos_block
+theme: materialize
+region: content
+weight: 0
+provider: null
+plugin: 'views_block:game_videos-block_1'
+settings:
+  id: 'views_block:game_videos-block_1'
+  label: ''
+  provider: views
+  label_display: '0'
+  views_label: ''
+  items_per_page: none
+  context_mapping: {  }
+visibility:
+  node_type:
+    id: node_type
+    bundles:
+      game: game
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

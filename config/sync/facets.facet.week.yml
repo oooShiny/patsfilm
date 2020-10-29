@@ -1,4 +1,4 @@
-uuid: 0153409c-38e6-4178-a6cc-4989f97122fe
+uuid: 23a17392-d4aa-413c-82fc-e156a7f22b98
 langcode: en
 status: true
 dependencies:
@@ -10,22 +10,16 @@ dependencies:
 id: week
 name: Week
 url_alias: week
-weight: -2
+weight: 0
 min_count: 1
-show_only_one_result: false
+show_only_one_result: true
 field_identifier: week
 facet_source_id: 'search_api:views_page__play_search__page_1'
 widget:
-  type: checkbox
+  type: dropdown
   config:
     show_numbers: true
-    soft_limit: 0
-    soft_limit_settings:
-      show_less_label: 'Show less'
-      show_more_label: 'Show more'
-    show_reset_link: false
-    reset_text: 'Show all'
-    hide_reset_when_no_selection: false
+    default_option_label: 'Choose Week'
 query_operator: or
 use_hierarchy: false
 expand_hierarchy: false

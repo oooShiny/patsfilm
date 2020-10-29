@@ -1,0 +1,54 @@
+uuid: b8fd2fcc-cdc0-418b-97f8-80da6d6c43c7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.game.field_home_away
+    - field.field.node.game.field_opponent
+    - field.field.node.game.field_season
+    - field.field.node.game.field_week
+    - node.type.game
+id: node.game.default
+targetEntityType: node
+bundle: game
+mode: default
+content:
+  field_home_away:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_opponent:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_season:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_week:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true

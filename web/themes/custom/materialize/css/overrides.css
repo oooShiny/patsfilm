@@ -406,4 +406,7 @@ a.btn {
   border-left: 1px solid lightgrey;
 }
 
-
+.collection-header {
+  font-size: 150%;
+  font-weight: 300;
+}

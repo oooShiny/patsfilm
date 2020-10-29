@@ -70,10 +70,8 @@
     <div class="col s12 m9">{{ page.content }}</div>
   </div>
   {% else %}
-      {% if page.content %}
-      <div class="container">
-          {{ page.content }}
-      </div>
+    {% if page.content %}
+      {{ page.content }}
     {% endif %}
   {% endif %}
 </main>

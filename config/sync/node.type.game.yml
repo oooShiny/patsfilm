@@ -1,0 +1,17 @@
+uuid: d4abd023-ca79-46f7-bf61-34e87107c860
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Game
+type: game
+description: 'A place to store information about a particular NFL game. This can be added to videos.'
+help: ''
+new_revision: false
+preview_mode: 1
+display_submitted: false

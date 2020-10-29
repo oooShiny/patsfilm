@@ -4,14 +4,14 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.video.field_game
     - field.field.node.video.field_personnel
     - field.field.node.video.field_play_type
     - field.field.node.video.field_pre_snap_movement
-    - field.field.node.video.field_season
     - field.field.node.video.field_situation
     - field.field.node.video.field_td_scored
+    - field.field.node.video.field_unit
     - field.field.node.video.field_video_link
-    - field.field.node.video.field_week
     - field.field.node.video.field_yards_gained
     - node.type.video
   module:
@@ -22,14 +22,6 @@ targetEntityType: node
 bundle: video
 mode: teaser
 content:
-  field_season:
-    type: entity_reference_label
-    weight: 1
-    region: content
-    label: hidden
-    settings:
-      link: false
-    third_party_settings: {  }
   field_video_link:
     type: link
     weight: 0
@@ -42,19 +34,14 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-  field_week:
-    type: entity_reference_label
-    weight: 2
-    region: content
-    label: hidden
-    settings:
-      link: false
-    third_party_settings: {  }
 hidden:
+  field_game: true
   field_personnel: true
   field_play_type: true
   field_pre_snap_movement: true
   field_situation: true
   field_td_scored: true
+  field_unit: true
   field_yards_gained: true
   links: true
+  search_api_excerpt: true

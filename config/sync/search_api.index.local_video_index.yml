@@ -3,23 +3,37 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.node.field_game
+    - field.storage.node.field_opponent
+    - field.storage.node.field_season
+    - field.storage.node.field_week
     - field.storage.node.field_personnel
     - field.storage.node.field_play_type
     - field.storage.node.field_pre_snap_movement
-    - field.storage.node.field_season
     - field.storage.node.field_situation
     - field.storage.node.field_td_scored
-    - field.storage.node.field_week
     - search_api.server.local_database
   module:
+    - node
     - taxonomy
     - search_api
-    - node
 id: local_video_index
 name: 'Local Video Index'
 description: ''
 read_only: false
 field_settings:
+  opponent:
+    label: 'Game » Content » Opponent » Taxonomy term » Name'
+    datasource_id: 'entity:node'
+    property_path: 'field_game:entity:field_opponent:entity:name'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_game
+        - field.storage.node.field_opponent
+      module:
+        - node
+        - taxonomy
   personnel:
     label: 'Personnel » Taxonomy term » Name'
     datasource_id: 'entity:node'
@@ -49,14 +63,16 @@ field_settings:
       config:
         - field.storage.node.field_pre_snap_movement
   season:
-    label: 'Season » Taxonomy term » Name'
+    label: 'Game » Content » Season » Taxonomy term » Name'
     datasource_id: 'entity:node'
-    property_path: 'field_season:entity:name'
+    property_path: 'field_game:entity:field_season:entity:name'
     type: string
     dependencies:
       config:
+        - field.storage.node.field_game
         - field.storage.node.field_season
       module:
+        - node
         - taxonomy
   situation:
     label: 'Situation » Taxonomy term » Name'
@@ -77,14 +93,16 @@ field_settings:
       config:
         - field.storage.node.field_td_scored
   week:
-    label: 'Week » Taxonomy term » Name'
+    label: 'Game » Content » Week » Taxonomy term » Name'
     datasource_id: 'entity:node'
-    property_path: 'field_week:entity:name'
+    property_path: 'field_game:entity:field_week:entity:name'
     type: string
     dependencies:
       config:
+        - field.storage.node.field_game
         - field.storage.node.field_week
       module:
+        - node
         - taxonomy
 datasource_settings:
   'entity:node':

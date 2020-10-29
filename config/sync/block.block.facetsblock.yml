@@ -15,18 +15,18 @@ provider: null
 plugin: facets_block
 settings:
   id: facets_block
-  label: 'Search Filters'
+  label: 'Play Filters'
   provider: facets_block
-  label_display: '0'
+  label_display: visible
   show_title: true
   exclude_empty_facets: true
   facets_to_include:
-    'facet_block:season': 'facet_block:season'
-    'facet_block:week': 'facet_block:week'
     'facet_block:personnel': 'facet_block:personnel'
     'facet_block:play_type': 'facet_block:play_type'
     'facet_block:pre_snap_movement': 'facet_block:pre_snap_movement'
     'facet_block:td_scored': 'facet_block:td_scored'
+    'facet_block:season': '0'
+    'facet_block:week': '0'
 visibility:
   request_path:
     id: request_path

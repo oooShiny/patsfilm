@@ -1,0 +1,55 @@
+uuid: 5dd3b1cb-8ad1-4205-b27f-aff067f8a5e2
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.game.field_home_away
+    - field.field.node.game.field_opponent
+    - field.field.node.game.field_season
+    - field.field.node.game.field_week
+    - node.type.game
+  module:
+    - user
+id: node.game.teaser
+targetEntityType: node
+bundle: game
+mode: teaser
+content:
+  field_home_away:
+    type: boolean
+    weight: 3
+    region: content
+    label: hidden
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+  field_opponent:
+    type: entity_reference_label
+    weight: 2
+    region: content
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+  field_season:
+    type: entity_reference_label
+    weight: 1
+    region: content
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+  field_week:
+    type: entity_reference_label
+    weight: 0
+    region: content
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+hidden:
+  links: true
+  search_api_excerpt: true

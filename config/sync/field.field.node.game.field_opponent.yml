@@ -1,0 +1,29 @@
+uuid: eb2de6bb-1bb2-46b4-a2c3-9ee4633632ab
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_opponent
+    - node.type.game
+    - taxonomy.vocabulary.team
+id: node.game.field_opponent
+field_name: field_opponent
+entity_type: node
+bundle: game
+label: Opponent
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      team: team
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

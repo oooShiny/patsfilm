@@ -33,7 +33,11 @@ function patsfilm_preprocess_field(&$variables) {
 function patsfilm_preprocess_page(&$variables) {
   if (isset($variables['node'])) {
     $type = $variables['node']->getType();
-    if ($type == 'video') {
+    $pages = [
+      'video',
+      'game',
+      ];
+    if (in_array($type, $pages)) {
       $variables['#attached']['library'][] = 'patsfilm/muse-video';
     }
   }

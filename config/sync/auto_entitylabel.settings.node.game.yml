@@ -1,0 +1,6 @@
+status: 1
+pattern: '[node:field_season] [node:field_week]: Patriots - [node:field_opponent]'
+escape: false
+dependencies:
+  config:
+    - node.type.game

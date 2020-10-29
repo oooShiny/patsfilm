@@ -1,0 +1,23 @@
+uuid: 0eb0b7b9-40e8-487c-93b9-42b31afbee07
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_home_away
+    - node.type.game
+id: node.game.field_home_away
+field_name: field_home_away
+entity_type: node
+bundle: game
+label: Home/Away
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Home
+  off_label: Away
+field_type: boolean
