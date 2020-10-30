@@ -29,7 +29,8 @@
         "drupal/olivero": "^1.0@beta",
         "drupal/search_api": "^1.18",
         "drupal/shield": "^1.4",
-        "drupal/token": "^1.7"
+        "drupal/token": "^1.7",
+        "drush/drush": "^10.3"
     },
     "conflict": {
         "drupal/drupal": "*"
