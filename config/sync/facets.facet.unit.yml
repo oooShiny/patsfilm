@@ -1,4 +1,4 @@
-uuid: 6b6cbb70-9663-4a5a-9a90-ad314148d8ce
+uuid: fb886c20-8002-4fee-807b-3f6d5411c903
 langcode: en
 status: true
 dependencies:
@@ -7,13 +7,13 @@ dependencies:
     - views.view.play_search
   module:
     - search_api
-id: td_scored
-name: 'TD Scored'
-url_alias: td_scored
-weight: 3
+id: unit
+name: Unit
+url_alias: unit
+weight: -1
 min_count: 1
 show_only_one_result: true
-field_identifier: td_scored
+field_identifier: unit
 facet_source_id: 'search_api:views_page__play_search__page_1'
 widget:
   type: dropdown
@@ -28,13 +28,6 @@ hard_limit: 0
 exclude: false
 only_visible_when_facet_source_is_visible: true
 processor_configs:
-  boolean_item:
-    processor_id: boolean_item
-    weights:
-      build: 35
-    settings:
-      on_value: 'Yes'
-      off_value: 'No'
   display_value_widget_order:
     processor_id: display_value_widget_order
     weights:

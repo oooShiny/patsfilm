@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.video.field_formation
     - field.field.node.video.field_game
     - field.field.node.video.field_personnel
     - field.field.node.video.field_play_type
@@ -35,6 +36,7 @@ third_party_settings:
     group_play_details:
       children:
         - field_unit
+        - field_formation
         - field_play_type
         - field_yards_gained
         - field_td_scored
@@ -70,6 +72,12 @@ targetEntityType: node
 bundle: video
 mode: default
 content:
+  field_formation:
+    weight: 28
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
   field_game:
     weight: 2
     settings:
@@ -87,7 +95,7 @@ content:
     type: options_buttons
     region: content
   field_play_type:
-    weight: 28
+    weight: 29
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
@@ -106,7 +114,7 @@ content:
     type: options_buttons
     region: content
   field_td_scored:
-    weight: 30
+    weight: 31
     settings:
       display_label: true
     third_party_settings: {  }
@@ -127,7 +135,7 @@ content:
     type: link_default
     region: content
   field_yards_gained:
-    weight: 29
+    weight: 30
     settings:
       placeholder: ''
     third_party_settings: {  }

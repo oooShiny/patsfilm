@@ -21,12 +21,15 @@ settings:
   show_title: true
   exclude_empty_facets: true
   facets_to_include:
+    'facet_block:unit': 'facet_block:unit'
+    'facet_block:formation': 'facet_block:formation'
     'facet_block:personnel': 'facet_block:personnel'
     'facet_block:play_type': 'facet_block:play_type'
     'facet_block:pre_snap_movement': 'facet_block:pre_snap_movement'
     'facet_block:td_scored': 'facet_block:td_scored'
     'facet_block:season': '0'
     'facet_block:week': '0'
+    'facet_block:opponent': '0'
 visibility:
   request_path:
     id: request_path

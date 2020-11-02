@@ -10,7 +10,7 @@ dependencies:
 id: pre_snap_movement
 name: 'Pre-Snap Movement'
 url_alias: pre_snap_movement
-weight: 1
+weight: 2
 min_count: 1
 show_only_one_result: true
 field_identifier: pre_snap_movement
@@ -35,6 +35,46 @@ processor_configs:
     settings:
       on_value: 'Yes'
       off_value: 'No'
+  dependent_processor:
+    processor_id: dependent_processor
+    weights:
+      build: 5
+    settings:
+      opponent:
+        enable: false
+        condition: null
+        values: ''
+        negate: false
+      personnel:
+        enable: false
+        condition: null
+        values: ''
+        negate: false
+      play_type:
+        enable: false
+        condition: null
+        values: ''
+        negate: false
+      season:
+        enable: false
+        condition: null
+        values: ''
+        negate: false
+      td_scored:
+        enable: false
+        condition: null
+        values: ''
+        negate: false
+      unit:
+        enable: true
+        condition: values
+        values: Offense
+        negate: false
+      week:
+        enable: false
+        condition: null
+        values: ''
+        negate: false
   display_value_widget_order:
     processor_id: display_value_widget_order
     weights:

@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.video.field_formation
     - field.field.node.video.field_game
     - field.field.node.video.field_personnel
     - field.field.node.video.field_play_type
@@ -35,6 +36,7 @@ content:
       target: ''
     third_party_settings: {  }
 hidden:
+  field_formation: true
   field_game: true
   field_personnel: true
   field_play_type: true

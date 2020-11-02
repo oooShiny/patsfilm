@@ -10,7 +10,7 @@ dependencies:
 id: season
 name: Season
 url_alias: season
-weight: 0
+weight: -4
 min_count: 1
 show_only_one_result: true
 field_identifier: season

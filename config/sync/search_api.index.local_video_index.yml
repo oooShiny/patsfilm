@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.node.field_formation
     - field.storage.node.field_game
     - field.storage.node.field_opponent
     - field.storage.node.field_season
@@ -12,16 +13,27 @@ dependencies:
     - field.storage.node.field_pre_snap_movement
     - field.storage.node.field_situation
     - field.storage.node.field_td_scored
+    - field.storage.node.field_unit
     - search_api.server.local_database
   module:
-    - node
     - taxonomy
+    - node
     - search_api
 id: local_video_index
 name: 'Local Video Index'
 description: ''
 read_only: false
 field_settings:
+  formation:
+    label: 'Formation » Taxonomy term » Name'
+    datasource_id: 'entity:node'
+    property_path: 'field_formation:entity:name'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_formation
+      module:
+        - taxonomy
   opponent:
     label: 'Game » Content » Opponent » Taxonomy term » Name'
     datasource_id: 'entity:node'
@@ -92,6 +104,16 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_td_scored
+  unit:
+    label: 'Unit » Taxonomy term » Name'
+    datasource_id: 'entity:node'
+    property_path: 'field_unit:entity:name'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_unit
+      module:
+        - taxonomy
   week:
     label: 'Game » Content » Week » Taxonomy term » Name'
     datasource_id: 'entity:node'
