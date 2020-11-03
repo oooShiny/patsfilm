@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e6eb13c95f717918b204f5b046d91e2a",
+    "content-hash": "687ff96a44b72bd56fed65fbca9c5682",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1990,6 +1990,62 @@
             "description": "Locked core dependencies; require this project INSTEAD OF drupal/core."
         },
         {
+            "name": "drupal/entity_block",
+            "version": "1.0.0-beta3",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/entity_block.git",
+                "reference": "8.x-1.0-beta3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/entity_block-8.x-1.0-beta3.zip",
+                "reference": "8.x-1.0-beta3",
+                "shasum": "523a66fd1089117fc857fb6e719ae4333d30e46d"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.0-beta3",
+                    "datestamp": "1593050227",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Jaesin",
+                    "homepage": "https://www.drupal.org/user/841054"
+                },
+                {
+                    "name": "arshadcn",
+                    "homepage": "https://www.drupal.org/user/571032"
+                },
+                {
+                    "name": "floretan",
+                    "homepage": "https://www.drupal.org/user/66163"
+                },
+                {
+                    "name": "rrrob",
+                    "homepage": "https://www.drupal.org/user/273533"
+                }
+            ],
+            "description": "Let site administrators place content entities as blocks.",
+            "homepage": "https://www.drupal.org/project/entity_block",
+            "support": {
+                "source": "https://git.drupalcode.org/project/entity_block"
+            }
+        },
+        {
             "name": "drupal/facets",
             "version": "1.5.0",
             "source": {
@@ -2160,6 +2216,74 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/field_group",
                 "issues": "https://www.drupal.org/project/issues/field_group"
+            }
+        },
+        {
+            "name": "drupal/gutenberg",
+            "version": "1.11.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/gutenberg.git",
+                "reference": "8.x-1.11"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/gutenberg-8.x-1.11.zip",
+                "reference": "8.x-1.11",
+                "shasum": "156ff130a8a30b2165cf5cf2617021e725b15efe"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.11",
+                    "datestamp": "1587683303",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "codebymikey",
+                    "homepage": "https://www.drupal.org/user/3573206"
+                },
+                {
+                    "name": "kszarek",
+                    "homepage": "https://www.drupal.org/user/3563337"
+                },
+                {
+                    "name": "marcofernandes",
+                    "homepage": "https://www.drupal.org/user/2127558"
+                },
+                {
+                    "name": "perandre",
+                    "homepage": "https://www.drupal.org/user/221337"
+                },
+                {
+                    "name": "roborn",
+                    "homepage": "https://www.drupal.org/user/139474"
+                },
+                {
+                    "name": "sayco",
+                    "homepage": "https://www.drupal.org/user/3517832"
+                },
+                {
+                    "name": "thorandre",
+                    "homepage": "https://www.drupal.org/user/223878"
+                }
+            ],
+            "description": "Advanced, yet easy to use content editor. Activate it on the content type edit page.",
+            "homepage": "https://www.drupal.org/project/gutenberg",
+            "support": {
+                "source": "https://git.drupalcode.org/project/gutenberg"
             }
         },
         {
@@ -6544,6 +6668,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "drupal/auto_entitylabel": 10,
+        "drupal/entity_block": 10,
         "drupal/olivero": 10
     },
     "prefer-stable": true,

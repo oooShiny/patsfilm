@@ -70,20 +70,42 @@
  *   in different view modes.
  */
 #}
-<div class="card">
-  <div class="card-image">
-    {{ content.field_video_link }}
-  </div>
-  <div class="card-content">
-    <span class="grey-text activator text-darken-4">{{ label }}<i class="material-icons right">more_vert</i></span>
-  </div>
-  <div class="card-reveal">
-    <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
-    <ul class="collection">
-      <li class="collection-item">{{ content.field_game }}</li>
-      <li class="collection-item"><a href="{{ url }}">Video Page</a></li>
-      <li class="collection-item"><a href="{{ content.field_video_link[0]['#url'] }}">Video Link</a></li>
-    </ul>
-  </div>
-</div>
+{% set created = node.getCreatedTime|date('j F Y') %}
 
+<article{{ attributes }}>
+  <div class="parallax-container hide-on-small-only">
+    <div class="parallax">
+      <div class="parallax-overlay">
+        <h1 class="overlay-title">{{ label.0['#context']['value']|upper }}</h1>
+        {% if recap %}
+        <div class="overlay-body">{{ created }}</div>
+        {% else %}
+          <div class="overlay-body">{{ author_name }} <br/>
+            {{ created }}</div>
+          {% endif %}
+      </div>
+      {{ content.field_image }}
+    </div>
+  </div>
+
+  <div class="hide-on-med-and-up">
+    <h1 class="center">{{ label.0['#context']['value']|upper }}</h1>
+  </div>
+
+
+
+  <div class="container">
+    {{ content|without('field_image', 'field_related_blogs') }}
+  </div>
+</article>
+<script>
+    jQuery(function ($) {
+        $(document).ready(function(){
+            $('.pinned-to-top').pushpin({
+                top: 564,
+                offset: 0
+            });
+        });
+
+    });
+</script>
