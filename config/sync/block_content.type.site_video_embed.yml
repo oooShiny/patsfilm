@@ -1,0 +1,8 @@
+uuid: 3c6da399-eb3b-42ae-8bc8-92e30cc85df9
+langcode: en
+status: true
+dependencies: {  }
+id: site_video_embed
+label: 'Site Video Embed'
+revision: 0
+description: ''

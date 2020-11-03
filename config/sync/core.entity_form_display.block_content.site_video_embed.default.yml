@@ -1,0 +1,31 @@
+uuid: 15a563e8-524f-4705-bfd8-f1d2bcf4fd54
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.site_video_embed
+    - field.field.block_content.site_video_embed.field_video
+id: block_content.site_video_embed.default
+targetEntityType: block_content
+bundle: site_video_embed
+mode: default
+content:
+  field_video:
+    weight: 26
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  info:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }
