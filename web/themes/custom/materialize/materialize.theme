@@ -125,13 +125,15 @@ function materialize_preprocess_node(&$variables) {
   if ($node->getType() == 'video') {
     $game_node = $node->get('field_game')->referencedEntities();
     $game = array_pop($game_node);
-    if ($game->hasField('field_home_away') && $game->get('field_home_away')->value == 1) {
-      $variables['stadium_img'] = 'foxboro.jpg';
-    }
-    else {
-      $tid = $game->get('field_opponent')->target_id;
-      $team = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($tid)->label();
-      $variables['stadium_img'] = strtolower($team) . '.jpg';
+    if (!is_null($game)&& $game->hasField('field_home_away')) {
+      if ($game->get('field_home_away')->value == 1) {
+        $variables['stadium_img'] = 'foxboro.jpg';
+      }
+      else {
+        $tid = $game->get('field_opponent')->target_id;
+        $team = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($tid)->label();
+        $variables['stadium_img'] = strtolower($team) . '.jpg';
+      }
     }
   }
 }
