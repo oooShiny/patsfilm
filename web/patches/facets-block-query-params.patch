@@ -1,0 +1,27 @@
+diff --git a/src/Plugin/Block/FacetsBlock.php b/src/Plugin/Block/FacetsBlock.php
+index 49d8c1b..82a19a7 100644
+--- a/src/Plugin/Block/FacetsBlock.php
++++ b/src/Plugin/Block/FacetsBlock.php
+@@ -240,11 +240,21 @@ class FacetsBlock extends BlockBase implements ContainerFactoryPluginInterface {
+   public function build() {
+     $show_title = !isset($this->configuration['show_title']) ? TRUE : $this->configuration['show_title'];
+     $facets_to_include = !isset($this->configuration['facets_to_include']) ? [] : $this->configuration['facets_to_include'];
+-
++    $request = \Drupal::request();
++    $tags = explode('&', urldecode($request->getQueryString()));
++    $filters = [];
++    if (!empty($tags[0])) {
++      foreach ($tags as $tag) {
++        $tag_parts = explode('=', $tag);
++        $filter_parts = explode(':', $tag_parts[1]);
++        $filters[$filter_parts[0]] = $filter_parts[1];
++      }
++    }
+     return [
+       '#theme' => 'facets_block',
+       '#show_title' => $show_title,
+       '#facets' => $this->buildFacets($facets_to_include),
++      '#tags' => $filters,
+     ];
+   }
+ 

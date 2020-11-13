@@ -1,0 +1,7 @@
+{
+  "patches": {
+    "drupal/facets_block": {
+      "Add Query Params to Facets Blocks": "web/patches/facets-block-query-params.patch"
+    }
+  }
+}

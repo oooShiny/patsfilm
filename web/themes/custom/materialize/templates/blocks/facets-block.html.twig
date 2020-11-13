@@ -1,8 +1,15 @@
-
 {% for facet in facets %}
+  {% set state = '' %}
+  {% set arrow = 'keyboard_arrow_right' %}
+  {% for tag, selection in tags %}
+    {% if facet.title|lower == tag  %}
+      {% set state = 'active bold' %}
+      {% set arrow = 'keyboard_arrow_down' %}
+    {% endif %}
+  {% endfor %}
   <li>
-    <div class="collapsible-header">
-      <i class="material-icons">keyboard_arrow_right</i>{{ facet.title }}
+    <div class="collapsible-header {{ state }}">
+      <i class="material-icons">{{ arrow}}</i>{{ facet.title }}
     </div>
     <div class="collapsible-body padded">
       <p>{{ facet.content }}</p>
