@@ -125,7 +125,7 @@ function materialize_preprocess_node(&$variables) {
   if ($node->getType() == 'video') {
     $game_node = $node->get('field_game')->referencedEntities();
     $game = array_pop($game_node);
-    if ($game->get('field_home_away')->value == 1) {
+    if ($game->hasField('field_home_away') && $game->get('field_home_away')->value == 1) {
       $variables['stadium_img'] = 'foxboro.jpg';
     }
     else {
