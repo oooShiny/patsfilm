@@ -69,7 +69,6 @@ theme:
   stable9: 0
   materialize: 0
   gin: 0
-  material_base: 0
 profile: standard
 _core:
   default_config_hash: R4IF-ClDHXxblLcG0L7MgsLvfBIMAvi_skumNFQwkDc
