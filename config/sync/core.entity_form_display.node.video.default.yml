@@ -3,45 +3,37 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.video.field_ball_carrier
     - field.field.node.video.field_formation
     - field.field.node.video.field_game
+    - field.field.node.video.field_pass_target
+    - field.field.node.video.field_passer
     - field.field.node.video.field_personnel
     - field.field.node.video.field_play_type
     - field.field.node.video.field_pre_snap_movement
+    - field.field.node.video.field_rb_split
     - field.field.node.video.field_situation
     - field.field.node.video.field_td_scored
     - field.field.node.video.field_unit
     - field.field.node.video.field_video_link
+    - field.field.node.video.field_wr_split
     - field.field.node.video.field_yards_gained
     - node.type.video
   module:
+    - conditional_fields
     - field_group
+    - inline_entity_form
     - link
 third_party_settings:
   field_group:
-    group_game_details:
-      children:
-        - field_game
-      parent_name: ''
-      weight: 3
-      format_type: tab
-      region: content
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-        formatter: open
-        required_fields: true
-      label: 'Game Details'
     group_play_details:
       children:
-        - field_unit
-        - field_formation
-        - field_play_type
+        - group_pass_player_columns
+        - field_ball_carrier
         - field_yards_gained
         - field_td_scored
       parent_name: ''
-      weight: 5
+      weight: 7
       format_type: tab
       region: content
       format_settings:
@@ -53,11 +45,13 @@ third_party_settings:
       label: 'Play Details'
     group_formation_details:
       children:
+        - field_formation
         - field_pre_snap_movement
-        - field_situation
         - field_personnel
+        - field_rb_split
+        - field_wr_split
       parent_name: ''
-      weight: 4
+      weight: 6
       format_type: tab
       region: content
       format_settings:
@@ -67,11 +61,101 @@ third_party_settings:
         formatter: open
         required_fields: true
       label: 'Formation Details'
+    group_game_details:
+      children:
+        - field_game
+        - field_situation
+      parent_name: ''
+      weight: 2
+      format_type: tab
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        formatter: open
+        required_fields: true
+      label: 'Game Details'
+    group_columns:
+      children:
+        - field_unit
+        - field_play_type
+      parent_name: ''
+      weight: 3
+      format_type: html_element
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        required_fields: true
+        attributes: 'class="grid-items"'
+        effect: none
+        speed: fast
+      label: Columns
+    group_pass_player_columns:
+      children:
+        - field_passer
+        - field_pass_target
+      parent_name: group_play_details
+      weight: 20
+      format_type: html_element
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        required_fields: true
+        attributes: 'class="grid-items"'
+        effect: none
+        speed: fast
+      label: 'Pass Player Columns'
 id: node.video.default
 targetEntityType: node
 bundle: video
 mode: default
 content:
+  field_ball_carrier:
+    weight: 23
+    settings:
+      form_mode: default
+      override_labels: true
+      label_singular: Player
+      label_plural: Players
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      revision: false
+      collapsible: false
+      collapsed: false
+      allow_duplicate: false
+    third_party_settings:
+      conditional_fields:
+        f9cd4c55-9936-4870-80b6-71f5720bd22d:
+          dependee: field_play_type
+          settings:
+            state: visible
+            condition: value
+            grouping: AND
+            values_set: 3
+            value: ''
+            values: "20\r\n25"
+            value_form:
+              -
+                target_id: null
+            effect: show
+            effect_options: {  }
+            selector: ''
+          entity_type: node
+          bundle: video
+    type: inline_entity_form_complex
+    region: content
   field_formation:
     weight: 28
     settings: {  }
@@ -79,7 +163,7 @@ content:
     type: options_select
     region: content
   field_game:
-    weight: 2
+    weight: 3
     settings:
       match_operator: CONTAINS
       match_limit: 10
@@ -88,43 +172,119 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: content
+  field_pass_target:
+    weight: 22
+    settings:
+      form_mode: default
+      override_labels: true
+      label_singular: Player
+      label_plural: Players
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      revision: false
+      collapsible: false
+      collapsed: false
+      allow_duplicate: false
+    third_party_settings:
+      conditional_fields:
+        ec39610c-9eed-4c1d-95a3-9cf0a949ae9e:
+          dependee: field_play_type
+          settings:
+            state: visible
+            condition: value
+            grouping: AND
+            values_set: 3
+            value: ''
+            values: "21\r\n22\r\n23"
+            value_form:
+              -
+                target_id: null
+            effect: show
+            effect_options: {  }
+            selector: ''
+          entity_type: node
+          bundle: video
+    type: inline_entity_form_complex
+    region: content
+  field_passer:
+    weight: 21
+    settings:
+      form_mode: default
+      override_labels: true
+      label_singular: Player
+      label_plural: Players
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      revision: false
+      collapsible: false
+      collapsed: false
+      allow_duplicate: false
+    third_party_settings:
+      conditional_fields:
+        6cfbb335-6a50-41b6-8159-1a87690c966c:
+          dependee: field_play_type
+          settings:
+            state: visible
+            condition: value
+            grouping: AND
+            values_set: 3
+            value: ''
+            values: "21\r\n22\r\n23"
+            value_form:
+              -
+                target_id: '21'
+            effect: show
+            effect_options: {  }
+            selector: ''
+          entity_type: node
+          bundle: video
+    type: inline_entity_form_complex
+    region: content
   field_personnel:
-    weight: 6
+    weight: 30
     settings: {  }
     third_party_settings: {  }
-    type: options_buttons
+    type: options_select
     region: content
   field_play_type:
-    weight: 29
-    settings: {  }
-    third_party_settings: {  }
-    type: options_buttons
-    region: content
-  field_pre_snap_movement:
-    weight: 4
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
-  field_situation:
     weight: 5
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
     region: content
-  field_td_scored:
+  field_pre_snap_movement:
+    weight: 29
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_rb_split:
     weight: 31
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_situation:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_td_scored:
+    weight: 25
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
   field_unit:
-    weight: 27
+    weight: 4
     settings: {  }
     third_party_settings: {  }
-    type: options_select
+    type: options_buttons
     region: content
   field_video_link:
     weight: 1
@@ -134,8 +294,14 @@ content:
     third_party_settings: {  }
     type: link_default
     region: content
+  field_wr_split:
+    weight: 32
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
   field_yards_gained:
-    weight: 30
+    weight: 24
     settings:
       placeholder: ''
     third_party_settings: {  }
@@ -145,7 +311,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 6
+    weight: 8
     region: content
     third_party_settings: {  }
   title:

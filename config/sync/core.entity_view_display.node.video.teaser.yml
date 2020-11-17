@@ -4,15 +4,20 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.video.field_ball_carrier
     - field.field.node.video.field_formation
     - field.field.node.video.field_game
+    - field.field.node.video.field_pass_target
+    - field.field.node.video.field_passer
     - field.field.node.video.field_personnel
     - field.field.node.video.field_play_type
     - field.field.node.video.field_pre_snap_movement
+    - field.field.node.video.field_rb_split
     - field.field.node.video.field_situation
     - field.field.node.video.field_td_scored
     - field.field.node.video.field_unit
     - field.field.node.video.field_video_link
+    - field.field.node.video.field_wr_split
     - field.field.node.video.field_yards_gained
     - node.type.video
   module:
@@ -44,13 +49,18 @@ content:
       target: ''
     third_party_settings: {  }
 hidden:
+  field_ball_carrier: true
   field_formation: true
+  field_pass_target: true
+  field_passer: true
   field_personnel: true
   field_play_type: true
   field_pre_snap_movement: true
+  field_rb_split: true
   field_situation: true
   field_td_scored: true
   field_unit: true
+  field_wr_split: true
   field_yards_gained: true
   links: true
   search_api_excerpt: true

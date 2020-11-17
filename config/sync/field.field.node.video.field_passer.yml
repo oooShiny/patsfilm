@@ -1,0 +1,28 @@
+uuid: cba5a48b-4c5a-4caa-8502-4fbe6e9fcfe8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_passer
+    - node.type.player
+    - node.type.video
+id: node.video.field_passer
+field_name: field_passer
+entity_type: node
+bundle: video
+label: Passer
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      player: player
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,8 @@
+uuid: 700a9310-3cbb-40d2-92ae-7843b4de316f
+langcode: en
+status: true
+dependencies: {  }
+name: 'WR Splits'
+vid: wr_splits
+description: ''
+weight: 0

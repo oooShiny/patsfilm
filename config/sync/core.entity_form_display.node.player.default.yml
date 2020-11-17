@@ -1,0 +1,44 @@
+uuid: c498ff5d-250d-4696-9753-b9fb7327f1c1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.player.field_pfr_link
+    - field.field.node.player.field_position
+    - node.type.player
+  module:
+    - link
+id: node.player.default
+targetEntityType: node
+bundle: player
+mode: default
+content:
+  field_pfr_link:
+    weight: 26
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_position:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true

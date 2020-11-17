@@ -1,0 +1,29 @@
+uuid: 38496684-e35e-439d-b8dd-f5c9e8b87cb6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_wr_split
+    - node.type.video
+    - taxonomy.vocabulary.wr_splits
+id: node.video.field_wr_split
+field_name: field_wr_split
+entity_type: node
+bundle: video
+label: 'WR Split'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      wr_splits: wr_splits
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

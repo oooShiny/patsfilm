@@ -47,7 +47,8 @@
   </iframe>
 {% elseif provider == 'muse.ai' %}
   {% set vid = 'vid-' ~ video_id|render %}
-  <div id="{{ vid }}" ></div>
+
+  <div id="{{ vid }}" class="video-container"></div>
   <script>
     MusePlayer({
       container: document.getElementById('{{ vid }}'),
@@ -56,7 +57,7 @@
       search: false,
       links: true,
       logo: false,
-      sizing: '100%',
+      height: '800'
     });
   </script>
 {% endif %}

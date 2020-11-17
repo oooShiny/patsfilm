@@ -1,0 +1,28 @@
+uuid: 420f9b4c-03b4-4a96-9bbe-ab5058d5b932
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_pass_target
+    - node.type.player
+    - node.type.video
+id: node.video.field_pass_target
+field_name: field_pass_target
+entity_type: node
+bundle: video
+label: 'Pass Target'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      player: player
+    sort:
+      field: _none
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

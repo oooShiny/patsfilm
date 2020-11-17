@@ -1,0 +1,19 @@
+uuid: 1f517f49-da21-452a-976c-c09002796f5b
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+id: admin_grids
+label: 'Admin Grids'
+code: ".grid-items {\n    display: flex;\n    justify-content: space-around;\n}"
+conditions_require_all: true
+conditions:
+  current_theme:
+    id: current_theme
+    theme:
+      gin: gin
+    negate: false
+contexts: {  }
+media: all
+preprocess: true

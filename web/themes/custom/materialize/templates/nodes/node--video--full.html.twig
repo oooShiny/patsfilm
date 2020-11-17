@@ -78,29 +78,32 @@
 {#</div>#}
 <div class="container">
   <div class="row">
-    <div class="col s12 m6">
-      <div class="card">
-        <div class="card-image">
-          {{ content.field_video_link }}
-        </div>
-      </div>
-    </div>
-    <div class="col s12 m6">
+    <div class="col s12">
       <div class="card-panel">
         <div class="row">
-          <div class="col s6">
+          <div class="col s12">
             <span class="collection-header">Play Info</span>
             <ul class="browser-default">
               {% for field in content|without('field_video_link', 'field_game') %}
-                <li>{{ field }}</li>
+                {% if field|render %}
+                  <li>{{ field }}</li>
+                {% endif %}
               {% endfor %}
             </ul>
           </div>
-          <div class="col s6">
+        </div>
+        <div class="row">
+          <div class="col s12">
             {{ content.field_game }}
           </div>
         </div>
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="col s12">
+          {{ content.field_video_link }}
+    </div>
+  </div>
+
 </div>

@@ -11,7 +11,7 @@ field_name: field_game
 entity_type: node
 bundle: video
 label: Game
-description: ''
+description: 'Select the game that this play is from. If the game isn''t in the list, <a href="/node/add/game">add it here</a>.'
 required: true
 translatable: false
 default_value: {  }

@@ -107,3 +107,4 @@ article_allowed_drupal_blocks:
   system_powered_by_block: 0
   system_branding_block: 0
   node_syndicate_block: 0
+player_enable_full: 0

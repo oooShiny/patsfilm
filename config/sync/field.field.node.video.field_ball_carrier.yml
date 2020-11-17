@@ -1,0 +1,28 @@
+uuid: afb6de3e-dc31-4f6e-930c-dabb67530a26
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ball_carrier
+    - node.type.player
+    - node.type.video
+id: node.video.field_ball_carrier
+field_name: field_ball_carrier
+entity_type: node
+bundle: video
+label: 'Ball Carrier'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      player: player
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

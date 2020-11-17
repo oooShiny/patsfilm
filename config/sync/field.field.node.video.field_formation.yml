@@ -11,7 +11,7 @@ field_name: field_formation
 entity_type: node
 bundle: video
 label: Formation
-description: ''
+description: 'If the formation isn''t in the list, <a href="/admin/structure/taxonomy/manage/formation/add">add it here</a>.'
 required: false
 translatable: false
 default_value: {  }
