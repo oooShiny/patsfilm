@@ -28,8 +28,8 @@ bundle: video
 mode: default
 content:
   field_ball_carrier:
-    weight: 13
-    label: above
+    weight: 14
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
@@ -37,7 +37,7 @@ content:
     region: content
   field_formation:
     weight: 8
-    label: hidden
+    label: inline
     settings:
       link: false
     third_party_settings: {  }
@@ -53,16 +53,16 @@ content:
     type: entity_reference_entity_view
     region: content
   field_pass_target:
-    weight: 12
-    label: above
+    weight: 13
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
     region: content
   field_passer:
-    weight: 14
-    label: above
+    weight: 12
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
@@ -96,9 +96,9 @@ content:
     region: content
   field_rb_split:
     weight: 10
-    label: above
+    label: inline
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     type: entity_reference_label
     region: content
@@ -142,9 +142,9 @@ content:
     region: content
   field_wr_split:
     weight: 11
-    label: above
+    label: inline
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     type: entity_reference_label
     region: content

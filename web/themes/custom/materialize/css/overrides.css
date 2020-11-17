@@ -410,3 +410,7 @@ a.btn {
   font-size: 150%;
   font-weight: 300;
 }
+
+.pad-top {
+  margin-top: 2em;
+}
