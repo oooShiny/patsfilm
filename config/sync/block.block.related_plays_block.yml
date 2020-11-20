@@ -1,0 +1,32 @@
+uuid: 52647d6e-0551-4583-8f33-f9ca6e0212f7
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.related_plays
+  module:
+    - node
+    - views
+  theme:
+    - materialize
+id: related_plays_block
+theme: materialize
+region: content
+weight: 0
+provider: null
+plugin: 'views_block:related_plays-block_1'
+settings:
+  id: 'views_block:related_plays-block_1'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility:
+  node_type:
+    id: node_type
+    bundles:
+      video: video
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
