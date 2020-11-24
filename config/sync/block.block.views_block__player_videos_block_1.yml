@@ -1,32 +1,33 @@
-uuid: 52647d6e-0551-4583-8f33-f9ca6e0212f7
+uuid: 789a9006-ab3e-41ae-816a-5c7e9336d644
 langcode: en
 status: true
 dependencies:
   config:
-    - views.view.related_plays
+    - views.view.player_videos
   module:
     - node
     - views
   theme:
     - materialize
-id: related_plays_block
+id: views_block__player_videos_block_1
 theme: materialize
 region: content
-weight: 2
+weight: 0
 provider: null
-plugin: 'views_block:related_plays-block_1'
+plugin: 'views_block:player_videos-block_1'
 settings:
-  id: 'views_block:related_plays-block_1'
+  id: 'views_block:player_videos-block_1'
   label: ''
   provider: views
   label_display: '0'
   views_label: ''
   items_per_page: none
+  context_mapping: {  }
 visibility:
   node_type:
     id: node_type
     bundles:
-      video: video
+      player: player
     negate: false
     context_mapping:
       node: '@node.node_route_context:node'

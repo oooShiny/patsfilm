@@ -136,6 +136,10 @@ function materialize_preprocess_node(&$variables) {
       }
     }
   }
+  if ($node->getType() == 'player') {
+    $pfr = $node->get('field_pfr_link')->uri;
+    $variables['pfr'] = $pfr;
+  }
 }
 
 function get_team($tid) {

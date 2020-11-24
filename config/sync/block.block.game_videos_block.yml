@@ -12,7 +12,7 @@ dependencies:
 id: game_videos_block
 theme: materialize
 region: content
-weight: 0
+weight: -2
 provider: null
 plugin: 'views_block:game_videos-block_1'
 settings:

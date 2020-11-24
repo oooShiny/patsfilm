@@ -70,20 +70,22 @@
  *   in different view modes.
  */
 #}
-<div class="card">
-  <div class="card-image">
-    {{ content.field_video_link }}
-  </div>
-  <div class="card-content">
-    <span class="grey-text activator text-darken-4">{{ label }}<i class="material-icons right">more_vert</i></span>
-  </div>
-  <div class="card-reveal">
-    <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
-    <ul class="collection">
-      <li class="collection-item">{{ content.field_game }}</li>
-      <li class="collection-item"><a href="{{ url }}">{{ label }}</a></li>
-      <li class="collection-item"><a href="{{ content.field_video_link[0]['#url'] }}">Video Link</a></li>
-    </ul>
-  </div>
-</div>
+  <div class="container">
 
+    <div class="row">
+      <div class="col">
+        <a href="{{ pfr }}" class="btn green darken-3 white-text">View Player Stats on PFR</a>
+      </div>
+
+      <div class="col">
+        <div class="chip">{{ content.field_position }}</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <h2>Plays involving {{ label }}</h2>
+    </div>
+
+  </div>
+
+{# View blocks of videos filtered by player show here #}

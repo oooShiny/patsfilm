@@ -2,6 +2,9 @@
   "patches": {
     "drupal/facets_block": {
       "Add Query Params to Facets Blocks": "web/patches/facets-block-query-params.patch"
+    },
+    "drupal/views_entity_form_field": {
+      "Fix error on view save": "web/patches/3183476-entity-type-manager-fix.patch"
     }
   }
 }

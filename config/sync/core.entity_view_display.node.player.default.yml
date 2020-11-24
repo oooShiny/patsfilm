@@ -16,15 +16,15 @@ mode: default
 content:
   field_pfr_link:
     weight: 103
-    label: above
+    label: hidden
     settings:
       trim_length: 80
+      target: _blank
       url_only: false
       url_plain: false
-      rel: ''
-      target: ''
+      rel: '0'
     third_party_settings: {  }
-    type: link
+    type: link_separate
     region: content
   field_position:
     weight: 102
@@ -36,8 +36,8 @@ content:
     region: content
   links:
     weight: 100
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden:
   search_api_excerpt: true

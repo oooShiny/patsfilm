@@ -36,6 +36,7 @@ function patsfilm_preprocess_page(&$variables) {
     $pages = [
       'video',
       'game',
+      'player',
       ];
     if (in_array($type, $pages)) {
       $variables['#attached']['library'][] = 'patsfilm/muse-video';
