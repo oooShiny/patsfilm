@@ -8,7 +8,6 @@ base theme: stable9
 # Libraries
 libraries:
   - materialize/global-styling
-  - materialize/videojs
 # Regions
 regions:
   header: 'Header'
