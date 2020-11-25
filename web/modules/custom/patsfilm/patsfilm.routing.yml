@@ -1,0 +1,9 @@
+patsfilm.videoimport:
+  path: '/admin/film/import'
+  defaults:
+    _form: '\Drupal\patsfilm\Form\VideoImportForm'
+    _title: 'Import Latest Videos'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE
