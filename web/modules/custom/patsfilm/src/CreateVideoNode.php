@@ -14,9 +14,9 @@ class CreateVideoNode {
       'type' => 'video',
       'title' => $video['title'],
       'field_video_link' => $video['url'],
-      'field_unit' => $fields['unit'][0]['target_id'] ?: NULL,
+      'field_unit' => $fields['unit'] ?: NULL,
+      'field_play_type' => $fields['play_type'] ?: NULL,
       'field_game' => $fields['game'][0]['target_id'] ?: NULL,
-      'field_play_type' => $fields['play_type'][0]['target_id'] ?: NULL,
     ]);
 
     $results[] = $node->save();
