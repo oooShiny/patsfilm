@@ -4,6 +4,6 @@ patsfilm.videoimport:
     _form: '\Drupal\patsfilm\Form\VideoImportForm'
     _title: 'Import Latest Videos'
   requirements:
-    _permission: 'access administration pages'
+    _permission: 'add muse videos'
   options:
     _admin_route: TRUE
