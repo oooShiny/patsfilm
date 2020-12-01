@@ -6,7 +6,9 @@ features:
 logo:
   use_default: 1
 favicon:
-  use_default: 1
+  use_default: 0
+  path: themes/custom/materialize/icons/favicon.png
+  mimetype: image/png
 header_bg_color: '#37474f'
 header_text_color: '#ffffff'
 body_bg_color: '#ffffff'
