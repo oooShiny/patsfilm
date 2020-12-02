@@ -2,6 +2,8 @@ uuid: 213d3815-c9c0-4bbc-a512-fecda679b29a
 langcode: en
 status: true
 dependencies:
+  module:
+    - system
   theme:
     - materialize
 _core:
@@ -9,7 +11,7 @@ _core:
 id: materialize_page_title
 theme: materialize
 region: header
-weight: -7
+weight: -8
 provider: null
 plugin: page_title_block
 settings:
@@ -17,4 +19,8 @@ settings:
   label: 'Page title'
   provider: core
   label_display: '0'
-visibility: {  }
+visibility:
+  request_path:
+    id: request_path
+    pages: /search
+    negate: true

@@ -10,7 +10,7 @@ dependencies:
 id: facetsblock_2
 theme: materialize
 region: left
-weight: 0
+weight: -6
 provider: null
 plugin: facets_block
 settings:

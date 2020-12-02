@@ -1,0 +1,28 @@
+uuid: d5624032-fa7f-44d1-8fd8-2497002e11ca
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.play_search
+  module:
+    - system
+    - views
+  theme:
+    - materialize
+id: play_search_box
+theme: materialize
+region: left
+weight: -7
+provider: null
+plugin: 'views_exposed_filter_block:play_search-page_1'
+settings:
+  id: 'views_exposed_filter_block:play_search-page_1'
+  label: ''
+  provider: views
+  label_display: '0'
+  views_label: ''
+visibility:
+  request_path:
+    id: request_path
+    pages: /search
+    negate: false

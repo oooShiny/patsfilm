@@ -9,9 +9,9 @@ favicon:
   use_default: 0
   path: themes/custom/materialize/icons/favicon.png
   mimetype: image/png
-header_bg_color: '#37474f'
+header_bg_color: '#082655'
 header_text_color: '#ffffff'
-body_bg_color: '#ffffff'
-footer_bg_color: '#37474f'
+body_bg_color: '#eeeeee'
+footer_bg_color: '#082655'
 footer_text_color: '#ffffff'
 footer_copyright: ''

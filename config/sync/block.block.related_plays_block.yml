@@ -12,7 +12,7 @@ dependencies:
 id: related_plays_block
 theme: materialize
 region: content
-weight: 2
+weight: 1
 provider: null
 plugin: 'views_block:related_plays-block_1'
 settings:

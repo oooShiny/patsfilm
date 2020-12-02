@@ -25,9 +25,16 @@
  * @see template_preprocess_block()
  */
 #}
-<ul class="collapsible no-pad-top" data-collapsible="expandable">
-  <li class="collection-header blue darken-4 white-text">{% if label %}{{ label }}{% else %}Filters{% endif %} <a href="/search" class="btn blue-text text-darken-4 white right">Reset Filters</a></li>
-  {% block content %}
-    {{ content }}
-  {% endblock %}
-</ul>
+
+    <div class="card-panel">
+      {{ title_prefix }}
+      {% if label %}
+        <h2{{ title_attributes }}>{{ label }}</h2>
+      {% endif %}
+      {{ title_suffix }}
+      {% block content %}
+        {{ content }}
+      {% endblock %}
+    </div>
+
+

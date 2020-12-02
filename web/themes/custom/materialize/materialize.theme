@@ -142,6 +142,19 @@ function materialize_preprocess_node(&$variables) {
   }
 }
 
+/**
+ * Implements hook_preprocess_view_view_field().
+ */
+function materialize_preprocess_views_view_field(&$variables) {
+  $view = $variables['view']->id();
+  $field = $variables['field'];
+  if ($view == 'play_search' && $field->field == 'title') {
+    $output = explode('~~', $variables['output']->__toString());
+    $variables['muse_id'] = $output[0];
+    $variables['muse_title'] = $output[1];
+  }
+}
+
 function get_team($tid) {
 
 }

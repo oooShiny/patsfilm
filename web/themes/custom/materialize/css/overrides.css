@@ -278,6 +278,28 @@ img.updown-arrow {
 .nav-wrapper.new-england-patriots-red {
     border: none;
 }
+nav .brand-logo {
+  font-variant: all-small-caps;
+}
+
+nav.main-nav ul {
+  text-transform: uppercase;
+}
+
+nav.main-nav ul li a:hover {
+  text-decoration: underline;
+}
+
+.brand-logo img {
+  width: 32px;
+  margin-right: 16px;
+  vertical-align: middle;
+}
+
+nav .brand-logo {
+  text-transform: uppercase;
+  font-weight: 100;
+}
 
 blockquote.wp-block-quote {
     font-style: italic;
@@ -413,4 +435,8 @@ a.btn {
 
 .pad-top {
   margin-top: 2em;
+}
+
+#current-play-video {
+  padding-top: 0;
 }

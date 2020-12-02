@@ -12,7 +12,7 @@ dependencies:
 id: views_block__player_videos_block_2
 theme: materialize
 region: content
-weight: -1
+weight: -2
 provider: null
 plugin: 'views_block:player_videos-block_2'
 settings:
