@@ -143,6 +143,11 @@ function gin_page_attachments_alter(&$page) {
     // Attach accent overrides CSS.
     $page['#attached']['library'][] = 'gin/gin_accent';
 
+    // Custom CSS file.
+    if (file_exists('public://gin-custom.css')) {
+      $page['#attached']['library'][] = 'gin/gin_custom_css';
+    }
+
     // Expose settings to JS.
     $page['#attached']['drupalSettings']['gin']['darkmode'] = $darkmode;
     $page['#attached']['drupalSettings']['gin']['darkmode_class'] = $darkmode_class;
@@ -273,8 +278,9 @@ function gin_form_alter(&$form, $form_state, $form_id) {
 function gin_form_user_form_alter(&$form, FormStateInterface $form_state) {
   /** @var \Drupal\user\UserInterface $user */
   $user = $form_state->getBuildInfo()['callback_object']->getEntity();
+  $showUserThemeSettings = theme_get_setting('show_user_theme_settings');
 
-  if ($user->id()) {
+  if ($user->id() && $showUserThemeSettings) {
     /** @var \Drupal\user\UserDataInterface $userData */
     $userData = Drupal::service('user.data');
     $enabledUserOverrides = $userData->get('gin', $user->id(), 'enable_user_settings');
@@ -650,6 +656,16 @@ function gin_form_system_theme_settings_alter(&$form, FormStateInterface $form_s
     '#default_value' => $hcm_default,
   ];
 
+  // Allow user settings.
+  $showUserThemeSettings = theme_get_setting('show_user_theme_settings');
+
+  $form['custom_settings']['show_user_theme_settings'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Users can override Gin settings'),
+    '#description' => t('Expose the admin theme settings to users.'),
+    '#default_value' => $showUserThemeSettings,
+  ];
+
   /*
    * //////////////////////////
    * Toolbar settings.
@@ -914,9 +930,13 @@ function _gin_user__get_user_id() {
 }
 
 /**
- * Check user has enabled darkmode helper function.
+ * Check if user overrides are enabled.
  */
 function _gin_user__overrides_enabled() {
+  if (theme_get_setting('show_user_theme_settings') !== TRUE) {
+    return FALSE;
+  }
+
   $uid = _gin_user__get_user_id();
 
   /** @var \Drupal\user\UserDataInterface $userData */
@@ -1195,28 +1215,41 @@ function _gin_validate_path_logo($path) {
  * Check if were on a content edit form.
  */
 function _gin_is_content_form($form = NULL, $form_state = NULL, $form_id = NULL) {
-  $is_content_form = &drupal_static(__FUNCTION__);
-  $routeName = \Drupal::routeMatch()->getRouteName();
+  $is_content_form = FALSE;
 
-  if (is_bool($is_content_form)) {
-    return $is_content_form;
-  }
+  // Get route name.
+  $route_name = \Drupal::routeMatch()->getRouteName();
 
-  if ($form_state && ($form_state->getBuildInfo()['base_form_id'] ?? NULL) === 'node_form') {
-    $is_content_form = TRUE;
-  }
+  // Routes to include.
+  $route_names = [
+    'node.add',
+    'entity.node.content_translation_add',
+    'quick_node_clone.node.quick_clone',
+    'entity.node.edit_form',
+  ];
 
-  // If media library widget, don't use new content edit form.
-  if ($form_id && strpos($form_id, 'views_form_media_library_widget_') !== FALSE) {
-    $is_content_form = FALSE;
-  }
-
-  // Special routes.
   if (
-    $routeName === 'entity.node.content_translation_add'
-    || $routeName === 'quick_node_clone.node.quick_clone'
+    in_array($route_name, $route_names, TRUE) ||
+    ($form_state && ($form_state->getBuildInfo()['base_form_id'] ?? NULL) === 'node_form') ||
+    ($route_name === 'entity.group_content.create_form' && strpos($form_id, 'group_node') === FALSE)
   ) {
     $is_content_form = TRUE;
+  }
+
+  // Forms to exclude.
+  // If media library widget, don't use new content edit form.
+  // gin_preprocess_html is not triggered here, so checking
+  // the form id is enough.
+  $form_ids_to_ignore = [
+    'media_library_add_form_',
+    'views_form_media_library_widget_',
+    'views_exposed_form',
+  ];
+
+  foreach ($form_ids_to_ignore as $form_id_to_ignore) {
+    if ($form_id && strpos($form_id, $form_id_to_ignore) !== FALSE) {
+      $is_content_form = FALSE;
+    }
   }
 
   return $is_content_form;

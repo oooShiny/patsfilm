@@ -3,8 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.article.body
     - field.field.node.article.comment
+    - field.field.node.article.field_content
     - field.field.node.article.field_image
     - field.field.node.article.field_tags
     - image.style.thumbnail
@@ -12,8 +12,8 @@ dependencies:
   module:
     - comment
     - image
+    - layout_paragraphs
     - path
-    - text
 _core:
   default_config_hash: 6VUXB1jTUjK5zjkfMa2Kd2WW4sFUlgfBlfJSx01qLpU
 id: node.article.default
@@ -21,16 +21,6 @@ targetEntityType: node
 bundle: article
 mode: default
 content:
-  body:
-    type: text_textarea_with_summary
-    weight: 1
-    region: content
-    settings:
-      rows: 9
-      summary_rows: 3
-      placeholder: ''
-      show_summary: false
-    third_party_settings: {  }
   comment:
     type: comment_default
     weight: 20
@@ -43,6 +33,15 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_content:
+    type: layout_paragraphs
+    weight: 121
+    settings:
+      preview_view_mode: default
+      nesting_depth: 0
+      require_layouts: 1
+    third_party_settings: {  }
+    region: content
   field_image:
     type: image_image
     weight: 4

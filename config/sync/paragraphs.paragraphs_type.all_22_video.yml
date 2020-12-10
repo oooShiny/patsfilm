@@ -1,0 +1,10 @@
+uuid: 37d79745-7754-47d1-8374-aeb4185b38a6
+langcode: en
+status: true
+dependencies: {  }
+id: all_22_video
+label: 'All-22 Video'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

@@ -155,9 +155,21 @@ function materialize_preprocess_views_view_field(&$variables) {
   }
 }
 
-function get_team($tid) {
-
+/**
+ * Implements hook_preprocess_view_view_table().
+ */
+function materialize_preprocess_views_view_table(&$variables) {
+  $id = $variables['view']->id();
+  $rows = $variables['rows'];
+  if ($id == 'play_search') {
+    foreach ($rows as $id => $row) {
+      $vid_id = $row['attributes']->toArray();
+      $attribute = new \Drupal\Core\Template\Attribute(['onClick' => 'player.setVideo("'.$vid_id['class'][0].'")']);
+      $variables['rows'][$id]['attributes'] = $attribute;
+    }
+  }
 }
+
 
 
 function get_terms($taxonomy) {

@@ -37,50 +37,62 @@ class VideoImportForm extends ConfigFormBase {
 
     $form['instructions'] = [
       '#type' => 'item',
-      '#markup' => '<p>Import the latest videos from <a href="https://muse.ai/">Muse.ai</a> by clicking the
-                    <strong>Save configuration</strong> button below.</p><p>If you want to set defaults for ALL of the
-                    new videos, select them below. Otherwise leave them blank.</p>'
+      '#markup' => '<p class="messages messages--status">Import the latest videos from <a href="https://muse.ai/">Muse.ai</a> by clicking the
+                    <strong>Save configuration</strong> button below.</p>'
     ];
     $form['video_defaults'] = [
       '#type' => 'details',
       '#title' => 'Video Defaults',
       '#open' => TRUE
     ];
+    $form['video_defaults']['instructions'] = [
+      '#type' => 'item',
+      '#markup' => '<p class="messages messages--warning">If you want to set defaults for <strong>ALL</strong> of the imported videos, select them below. Otherwise leave them blank.</p>'
+    ];
     $form['video_defaults']['game'] = [
       '#type' => 'entity_autocomplete',
       '#target_type' => 'node',
       '#title' => $this->t('Game'),
-      '#description' => $this->t('Select in which game these videos occurred.'),
+      '#description' => $this->t('Select in which game these plays occurred.'),
       '#default_value' => '',
       '#tags' => TRUE,
       '#selection_settings' => [
         'target_bundles' => ['game'],
       ],
     ];
-    $unit_terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('unit');
-    $unit_types = [];
-    foreach ($unit_terms as $unit_type) {
-      $unit_types[$unit_type->tid] = $unit_type->name;
-    }
+
     $form['video_defaults']['unit'] = [
       '#type' => 'select',
       '#title' => $this->t('Unit'),
-      '#description' => $this->t('Select whether these videos are of the offense, defense, or special teams.'),
-      '#options' => $unit_types,
+      '#description' => $this->t('Select whether the imported plays are of the offense, defense, or special teams.'),
+      '#options' => $this->_get_terms('unit'),
       '#empty_value' => ''
     ];
-    $play_terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('play_type');
-    $play_types = [];
-    foreach ($play_terms as $play_type) {
-      $play_types[$play_type->tid] = $play_type->name;
-    }
+
     $form['video_defaults']['play_type'] = [
       '#type' => 'select',
       '#title' => $this->t('Play Type'),
-      '#description' => $this->t('Select whether these videos are of runs, passes, or something else.'),
-      '#options' => $play_types,
+      '#description' => $this->t('Select whether the imported plays are of runs, passes, or something else.'),
+      '#options' =>$this->_get_terms('play_type'),
       '#empty_value' => ''
     ];
+
+    $form['video_defaults']['personnel'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Personnel'),
+      '#description' => $this->t('Select the personnel package for the imported plays.'),
+      '#options' => $this->_get_terms('personnel'),
+      '#empty_value' => ''
+    ];
+
+    $form['video_defaults']['formation'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Formation'),
+      '#description' => $this->t('Select the formation for the imported plays.'),
+      '#options' => $this->_get_terms('formation'),
+      '#empty_value' => ''
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -140,4 +152,12 @@ class VideoImportForm extends ConfigFormBase {
   return json_decode($data);
   }
 
+  private function _get_terms($taxonomy) {
+    $term_array = [];
+    $terms =  \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($taxonomy);
+    foreach ($terms as $term) {
+      $term_array[$term->tid] = $term->name;
+    }
+    return $term_array;
+  }
 }

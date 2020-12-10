@@ -69,18 +69,66 @@ display:
         type: table
         options:
           grouping: {  }
-          row_class: ''
-          default_row_class: true
+          row_class: '{{ video_link }}'
+          default_row_class: false
           override: true
-          sticky: false
+          sticky: true
           caption: ''
           summary: ''
           description: ''
           columns:
+            video_link: video_link
+            title: title
+            play_type: play_type
+            formation: formation
             personnel: personnel
+            season: season
+            week: week
           info:
-            personnel:
+            video_link:
               sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            title:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            play_type:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            formation:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            personnel:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            season:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            week:
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''

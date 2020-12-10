@@ -21,7 +21,6 @@
 @import "settings/**/*";
 
 // Components
-@import "components/defaults";
 @import "components/body";
 @import "components/color-overrides";
 @import "components/regions";
@@ -75,3 +74,5 @@
 @import "components/linkit";
 @import "components/contextual";
 @import "components/maxlength";
+@import "components/dropzone";
+@import "components/entity-browser";

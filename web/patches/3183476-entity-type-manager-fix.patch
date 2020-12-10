@@ -1,0 +1,77 @@
+diff --git a/src/Plugin/views/field/EntityFormField.php b/src/Plugin/views/field/EntityFormField.php
+index 87ef141..70777c7 100644
+--- a/src/Plugin/views/field/EntityFormField.php
++++ b/src/Plugin/views/field/EntityFormField.php
+@@ -40,11 +40,11 @@ class EntityFormField extends FieldPluginBase implements CacheableDependencyInte
+   protected $entityFieldManager;
+ 
+   /**
+-   * The entity manager.
++   * The entity type manager.
+    *
+    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+    */
+-  protected $entityManager;
++  protected $entityTypeManager;
+ 
+   /**
+    * The entity type ID.
+@@ -92,18 +92,18 @@ class EntityFormField extends FieldPluginBase implements CacheableDependencyInte
+    *   The plugin implementation definition.
+    * @param \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager
+    *   The entity field manager.
+-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_manager
+-   *   The entity manager.
++   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
++   *   The entity type manager.
+    * @param \Drupal\Core\Field\WidgetPluginManager $field_widget_manager
+    *   The field widget plugin manager.
+    * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
+    *   The language manager.
+    */
+-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityFieldManagerInterface $entity_field_manager, EntityTypeManagerInterface $entity_manager, WidgetPluginManager $field_widget_manager, LanguageManagerInterface $language_manager) {
++  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityFieldManagerInterface $entity_field_manager, EntityTypeManagerInterface $entity_type_manager, WidgetPluginManager $field_widget_manager, LanguageManagerInterface $language_manager) {
+     parent::__construct($configuration, $plugin_id, $plugin_definition);
+ 
+     $this->entityFieldManager = $entity_field_manager;
+-    $this->entityManager = $entity_manager;
++    $this->entityTypeManager = $entity_type_manager;
+     $this->fieldWidgetManager = $field_widget_manager;
+     $this->languageManager = $language_manager;
+   }
+@@ -124,13 +124,13 @@ class EntityFormField extends FieldPluginBase implements CacheableDependencyInte
+   }
+ 
+   /**
+-   * Returns the entity manager.
++   * Returns the entity type manager.
+    *
+    * @return \Drupal\Core\Entity\EntityTypeManagerInterface
+-   *   The entity manager service.
++   *   The entity type manager service.
+    */
+-  protected function getEntityManager() {
+-    return $this->entityManager;
++  protected function getEntityTypeManager() {
++    return $this->entityTypeManager;
+   }
+ 
+   /**
+@@ -595,7 +595,7 @@ class EntityFormField extends FieldPluginBase implements CacheableDependencyInte
+   public function saveEntities(array &$form, FormStateInterface $form_state) {
+     // We only want to save the entity once per relationship.
+     if (is_null($form_state->getTemporaryValue(['saved_relationships', $this->relationship]))) {
+-      $storage = $this->getEntityManager()->getStorage($this->getEntityTypeId());
++      $storage = $this->getEntityTypeManager()->getStorage($this->getEntityTypeId());
+ 
+       $rows_saved = [];
+       $rows_failed = [];
+@@ -620,7 +620,7 @@ class EntityFormField extends FieldPluginBase implements CacheableDependencyInte
+ 
+       // Let the user know how many entities were saved.
+       $messenger = \Drupal::messenger();
+-      $entity_type_definition = $this->entityManager->getDefinition($this->getEntityTypeId());
++      $entity_type_definition = $this->entityTypeManager->getDefinition($this->getEntityTypeId());
+       $messenger->addStatus($this->formatPlural(count($rows_saved), '@count @singular_label saved.', '@count @plural_label saved.', [
+         '@count' => count($rows_saved),
+         '@singular_label' => $entity_type_definition->getSingularLabel(),
