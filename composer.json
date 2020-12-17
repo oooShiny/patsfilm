@@ -35,6 +35,7 @@
         "drupal/layout_paragraphs": "^1.0@beta",
         "drupal/material_base": "^1.8",
         "drupal/olivero": "^1.0@beta",
+        "drupal/pathauto": "^1.8",
         "drupal/search_api": "^1.18",
         "drupal/shield": "^1.4",
         "drupal/token": "^1.7",
