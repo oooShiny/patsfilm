@@ -6,6 +6,10 @@ dependencies:
     - field.field.node.video.field_formation
     - field.field.node.video.field_game
     - field.field.node.video.field_personnel
+    - field.field.node.video.field_play_type
+    - field.field.node.video.field_pre_snap_movement
+    - field.field.node.video.field_unit
+    - field.field.node.video.field_yards_gained
     - node.type.video
   module:
     - node
@@ -28,7 +32,7 @@ display:
       access:
         type: perm
         options:
-          perm: 'access content'
+          perm: 'edit any video content'
       cache:
         type: tag
         options: {  }
@@ -51,12 +55,17 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       pager:
-        type: mini
+        type: full
         options:
-          items_per_page: 50
+          items_per_page: 25
           offset: 0
           id: 0
           total_pages: null
+          tags:
+            previous: ‹‹
+            next: ››
+            first: '« First'
+            last: 'Last »'
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -65,9 +74,7 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
-          tags:
-            previous: ‹‹
-            next: ››
+          quantity: 9
       style:
         type: table
       row:
@@ -283,11 +290,232 @@ display:
           plugin:
             hide_title: 1
             hide_description: 1
-            type: entity_reference_autocomplete
+            type: options_select
+            settings: {  }
+            third_party_settings: {  }
+          entity_type: node
+          plugin_id: entity_form_field
+        form_field_field_play_type:
+          id: form_field_field_play_type
+          table: node_field_data
+          field: form_field_field_play_type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Play Type'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          plugin:
+            hide_title: 1
+            hide_description: 1
+            type: options_select
+            settings: {  }
+            third_party_settings: {  }
+          entity_type: node
+          plugin_id: entity_form_field
+        form_field_field_pre_snap_movement:
+          id: form_field_field_pre_snap_movement
+          table: node_field_data
+          field: form_field_field_pre_snap_movement
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Pre-Snap Movement'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          plugin:
+            hide_title: 1
+            hide_description: 1
+            type: boolean_checkbox
+            settings: {  }
+            third_party_settings: {  }
+          entity_type: node
+          plugin_id: entity_form_field
+        form_field_field_unit:
+          id: form_field_field_unit
+          table: node_field_data
+          field: form_field_field_unit
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Unit
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          plugin:
+            hide_title: 1
+            hide_description: 1
+            type: options_select
+            settings: {  }
+            third_party_settings: {  }
+          entity_type: node
+          plugin_id: entity_form_field
+        form_field_field_yards_gained:
+          id: form_field_field_yards_gained
+          table: node_field_data
+          field: form_field_field_yards_gained
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Yards Gained'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          plugin:
+            hide_title: 1
+            hide_description: 1
+            type: number
             settings:
-              match_operator: CONTAINS
-              match_limit: '10'
-              size: '60'
               placeholder: ''
             third_party_settings: {  }
           entity_type: node
@@ -354,9 +582,17 @@ display:
         - 'config:field.field.node.video.field_formation'
         - 'config:field.field.node.video.field_game'
         - 'config:field.field.node.video.field_personnel'
+        - 'config:field.field.node.video.field_play_type'
+        - 'config:field.field.node.video.field_pre_snap_movement'
+        - 'config:field.field.node.video.field_unit'
+        - 'config:field.field.node.video.field_yards_gained'
         - 'config:field.storage.node.field_formation'
         - 'config:field.storage.node.field_game'
         - 'config:field.storage.node.field_personnel'
+        - 'config:field.storage.node.field_play_type'
+        - 'config:field.storage.node.field_pre_snap_movement'
+        - 'config:field.storage.node.field_unit'
+        - 'config:field.storage.node.field_yards_gained'
   page_1:
     display_plugin: page
     id: page_1
@@ -378,6 +614,14 @@ display:
         - 'config:field.field.node.video.field_formation'
         - 'config:field.field.node.video.field_game'
         - 'config:field.field.node.video.field_personnel'
+        - 'config:field.field.node.video.field_play_type'
+        - 'config:field.field.node.video.field_pre_snap_movement'
+        - 'config:field.field.node.video.field_unit'
+        - 'config:field.field.node.video.field_yards_gained'
         - 'config:field.storage.node.field_formation'
         - 'config:field.storage.node.field_game'
         - 'config:field.storage.node.field_personnel'
+        - 'config:field.storage.node.field_play_type'
+        - 'config:field.storage.node.field_pre_snap_movement'
+        - 'config:field.storage.node.field_unit'
+        - 'config:field.storage.node.field_yards_gained'

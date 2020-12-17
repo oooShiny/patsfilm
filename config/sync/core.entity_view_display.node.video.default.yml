@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.video.field_ball_carrier
+    - field.field.node.video.field_completed_pass
     - field.field.node.video.field_formation
     - field.field.node.video.field_game
     - field.field.node.video.field_pass_target
@@ -34,6 +35,16 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
+  field_completed_pass:
+    weight: 15
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
     region: content
   field_formation:
     weight: 8

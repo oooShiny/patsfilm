@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.video.field_ball_carrier
+    - field.field.node.video.field_completed_pass
     - field.field.node.video.field_formation
     - field.field.node.video.field_game
     - field.field.node.video.field_pass_target
@@ -50,6 +51,7 @@ content:
     third_party_settings: {  }
 hidden:
   field_ball_carrier: true
+  field_completed_pass: true
   field_formation: true
   field_pass_target: true
   field_passer: true
