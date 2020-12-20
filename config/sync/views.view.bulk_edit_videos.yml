@@ -11,8 +11,12 @@ dependencies:
     - field.field.node.video.field_unit
     - field.field.node.video.field_yards_gained
     - node.type.video
+    - taxonomy.vocabulary.formation
+    - taxonomy.vocabulary.personnel
+    - taxonomy.vocabulary.play_type
   module:
     - node
+    - taxonomy
     - user
     - views_entity_form_field
 id: bulk_edit_videos
@@ -47,11 +51,11 @@ display:
       exposed_form:
         type: basic
         options:
-          submit_button: Apply
-          reset_button: false
+          submit_button: Filter
+          reset_button: true
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
-          expose_sort_order: true
+          expose_sort_order: false
           sort_asc_label: Asc
           sort_desc_label: Desc
       pager:
@@ -546,6 +550,242 @@ display:
           expose:
             operator_limit_selection: false
             operator_list: {  }
+        field_game_target_id:
+          id: field_game_target_id
+          table: node__field_game
+          field: field_game_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '='
+          value:
+            min: ''
+            max: ''
+            value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_game_target_id_op
+            label: 'Game (field_game)'
+            description: null
+            use_operator: false
+            operator: field_game_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_game_target_id
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            placeholder: null
+            min_placeholder: null
+            max_placeholder: null
+          is_grouped: true
+          group_info:
+            label: 'Game Field'
+            description: ''
+            identifier: game_set
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1:
+                title: Set
+                operator: 'not empty'
+                value:
+                  value: ''
+                  min: ''
+                  max: ''
+              2:
+                title: 'Not set'
+                operator: empty
+                value:
+                  value: ''
+                  min: ''
+                  max: ''
+              3:
+                title: ''
+                operator: '='
+                value:
+                  value: ''
+                  min: ''
+                  max: ''
+          plugin_id: numeric
+        field_play_type_target_id:
+          id: field_play_type_target_id
+          table: node__field_play_type
+          field: field_play_type_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_play_type_target_id_op
+            label: 'Play Type (field_play_type)'
+            description: null
+            use_operator: false
+            operator: field_play_type_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_play_type_target_id
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: true
+          group_info:
+            label: 'Play Type'
+            description: ''
+            identifier: play_type
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1:
+                title: Set
+                operator: 'not empty'
+                value: {  }
+              2:
+                title: 'Not Set'
+                operator: empty
+                value: {  }
+              3:
+                title: ''
+                operator: or
+                value: {  }
+          reduce_duplicates: false
+          type: select
+          limit: true
+          vid: play_type
+          hierarchy: false
+          error_message: true
+          plugin_id: taxonomy_index_tid
+        field_formation_target_id:
+          id: field_formation_target_id
+          table: node__field_formation
+          field: field_formation_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_formation_target_id_op
+            label: 'Formation (field_formation)'
+            description: null
+            use_operator: false
+            operator: field_formation_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_formation_target_id
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: true
+          group_info:
+            label: Formation
+            description: ''
+            identifier: formation
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1:
+                title: Set
+                operator: 'not empty'
+                value: {  }
+              2:
+                title: 'Not set'
+                operator: empty
+                value: {  }
+              3:
+                title: ''
+                operator: or
+                value: {  }
+          reduce_duplicates: false
+          type: select
+          limit: true
+          vid: formation
+          hierarchy: false
+          error_message: true
+          plugin_id: taxonomy_index_tid
+        field_personnel_target_id:
+          id: field_personnel_target_id
+          table: node__field_personnel
+          field: field_personnel_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_personnel_target_id_op
+            label: 'Personnel (field_personnel)'
+            description: null
+            use_operator: false
+            operator: field_personnel_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_personnel_target_id
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: true
+          group_info:
+            label: Personnel
+            description: ''
+            identifier: personnel
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1:
+                title: Set
+                operator: 'not empty'
+                value: {  }
+              2:
+                title: 'Not set'
+                operator: empty
+                value: {  }
+              3:
+                title: ''
+                operator: or
+                value: {  }
+          reduce_duplicates: false
+          type: select
+          limit: true
+          vid: personnel
+          hierarchy: false
+          error_message: true
+          plugin_id: taxonomy_index_tid
       sorts:
         created:
           id: created
@@ -574,6 +814,7 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - url
         - url.query_args
         - user
         - 'user.node_grants:view'
@@ -606,6 +847,7 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - url
         - url.query_args
         - user
         - 'user.node_grants:view'

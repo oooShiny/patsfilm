@@ -444,3 +444,24 @@ a.btn {
 tr.video-row {
   cursor: pointer;
 }
+
+.no-margin {
+  margin: 0;
+}
+
+.container-slim {
+  margin: 0 auto;
+  max-width: 1600px;
+  width: 95%; }
+
+@media only screen and (min-width : 601px) {
+  .container-slim {
+    width: 95%; } }
+
+@media only screen and (min-width : 993px) {
+  .container-slim {
+    width: 95%; } }
+
+.container-slim .row {
+  margin-left: -0.75rem;
+  margin-right: -0.75rem; }

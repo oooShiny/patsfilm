@@ -70,17 +70,15 @@
  *   in different view modes.
  */
 #}
-{#<div class="game-header" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/themes/custom/materialize/stadiums/{{ stadium_img }}');">#}
-{#  <div class="parallax-overlay">#}
-{#    <h1 class="overlay-title">{{ label }}</h1>#}
-{#  </div>#}
-{#</div>#}
-{#</div>#}
+
+<div class="container-slim">
   <div class="row">
-    <div class="col s10">
+    <div class="col s9">
       {{ content.field_video_link }}
+      <h2>{{ label }}</h2>
     </div>
-    <div class="col s12 l2 pad-top">
+    <div class="col s12 l3 pad-top">
+      <div class="card-panel no-margin">
         <div class="row">
           <div class="col s12">
             <span class="collection-header">Play Info</span>
@@ -99,4 +97,6 @@
           </div>
         </div>
       </div>
+    </div>
   </div>
+</div>
