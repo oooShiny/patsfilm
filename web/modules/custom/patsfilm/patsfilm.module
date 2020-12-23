@@ -52,6 +52,7 @@ function patsfilm_views_pre_render(ViewExecutable $view) {
   $views_list = [
     'video_list',
     'play_search',
+    'bulk_edit_videos',
   ];
   if (isset($view) && in_array($view->storage->id(), $views_list)) {
     $view->element['#attached']['library'][] = 'patsfilm/muse-video';
