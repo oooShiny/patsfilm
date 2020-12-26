@@ -5,6 +5,8 @@ dependencies:
   config:
     - field.field.node.video.field_ball_carrier
     - field.field.node.video.field_completed_pass
+    - field.field.node.video.field_distance
+    - field.field.node.video.field_down
     - field.field.node.video.field_formation
     - field.field.node.video.field_game
     - field.field.node.video.field_pass_target
@@ -13,11 +15,13 @@ dependencies:
     - field.field.node.video.field_play_type
     - field.field.node.video.field_pre_snap_movement
     - field.field.node.video.field_rb_split
+    - field.field.node.video.field_side_of_field
     - field.field.node.video.field_situation
     - field.field.node.video.field_td_scored
     - field.field.node.video.field_unit
     - field.field.node.video.field_video_link
     - field.field.node.video.field_wr_split
+    - field.field.node.video.field_yard_line
     - field.field.node.video.field_yards_gained
     - node.type.video
   module:
@@ -29,6 +33,10 @@ third_party_settings:
   field_group:
     group_play_details:
       children:
+        - field_down
+        - field_distance
+        - field_yard_line
+        - field_side_of_field
         - group_pass_player_columns
         - field_ball_carrier
       parent_name: ''
@@ -100,7 +108,7 @@ third_party_settings:
         - field_passer
         - field_pass_target
       parent_name: group_play_details
-      weight: 20
+      weight: 26
       format_type: html_element
       region: content
       format_settings:
@@ -125,11 +133,11 @@ third_party_settings:
       format_type: details
       region: content
       format_settings:
+        description: ''
+        open: true
+        required_fields: true
         id: ''
         classes: ''
-        description: ''
-        open: false
-        required_fields: true
       label: 'Play Result'
 id: node.video.default
 targetEntityType: node
@@ -137,7 +145,7 @@ bundle: video
 mode: default
 content:
   field_ball_carrier:
-    weight: 23
+    weight: 27
     settings:
       form_mode: default
       override_labels: true
@@ -195,6 +203,19 @@ content:
           entity_type: node
           bundle: video
     type: boolean_checkbox
+    region: content
+  field_distance:
+    weight: 23
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_down:
+    weight: 22
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
     region: content
   field_formation:
     weight: 28
@@ -307,6 +328,12 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
+  field_side_of_field:
+    weight: 25
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
   field_situation:
     weight: 4
     settings: {  }
@@ -339,6 +366,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
+  field_yard_line:
+    weight: 24
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
     region: content
   field_yards_gained:
     weight: 24

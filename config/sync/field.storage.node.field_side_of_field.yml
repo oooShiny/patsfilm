@@ -1,0 +1,27 @@
+uuid: 43f65101-1528-4d2b-a847-72e740b22392
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_side_of_field
+field_name: field_side_of_field
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: NE
+      label: NE
+    -
+      value: OPP
+      label: OPP
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,29 @@
+uuid: d27aacba-580d-46ee-8f74-a06668ab3a53
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_down
+    - node.type.video
+    - taxonomy.vocabulary.down
+id: node.video.field_down
+field_name: field_down
+entity_type: node
+bundle: video
+label: Down
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      down: down
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

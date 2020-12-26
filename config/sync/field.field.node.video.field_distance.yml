@@ -1,0 +1,23 @@
+uuid: 2d513c3b-d20f-4a98-a4ee-133e0f6640c2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_distance
+    - node.type.video
+id: node.video.field_distance
+field_name: field_distance
+entity_type: node
+bundle: video
+label: Distance
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

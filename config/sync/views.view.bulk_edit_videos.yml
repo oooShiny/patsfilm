@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.video.field_yards_gained
     - field.storage.node.field_video_link
     - node.type.video
+    - system.menu.admin
     - taxonomy.vocabulary.formation
     - taxonomy.vocabulary.personnel
     - taxonomy.vocabulary.play_type
@@ -1011,6 +1012,15 @@ display:
     display_options:
       display_extenders: {  }
       path: admin/bulk-edit/videos
+      menu:
+        type: normal
+        title: 'Bulk Edit Videos'
+        description: ''
+        expanded: false
+        parent: system.admin_content
+        weight: 0
+        context: '0'
+        menu_name: admin
     cache_metadata:
       max-age: -1
       contexts:

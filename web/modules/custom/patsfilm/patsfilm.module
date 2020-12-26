@@ -17,6 +17,11 @@ function patsfilm_theme($existing, $type, $theme, $path) {
       'template' => 'field--field-video-link',
       'path' => drupal_get_path('module', 'patsfilm') . '/templates',
     ],
+    'patsfilm_dashboard' => [
+      'variables' => [
+        'dashuser' => '',
+      ]
+    ],
   ];
 }
 

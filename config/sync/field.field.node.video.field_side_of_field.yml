@@ -1,0 +1,21 @@
+uuid: ad767d67-8cfc-436a-82f0-b2934bc44791
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_side_of_field
+    - node.type.video
+  module:
+    - options
+id: node.video.field_side_of_field
+field_name: field_side_of_field
+entity_type: node
+bundle: video
+label: 'Side of Field'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string
