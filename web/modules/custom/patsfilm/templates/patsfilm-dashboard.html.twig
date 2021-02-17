@@ -14,8 +14,9 @@
       <h3 class="card-title">Unpublished Blog Posts</h3>
       <div class="card-content"> {{ drupal_view('unpublished_blog_posts', 'block_1') }}</div>
       <div class="card-footer">
-        <ul class="card-footer-links">
-          <li><a href="/admin/content?title=&type=article&status=2&langcode=All">View All &rsaquo;</a></li>
+        <ul class="card-footer-links action-links">
+          <li><a class="button button--action button--primary" href="/admin/content?title=&type=article&status=2&langcode=All">View All &rsaquo;</a></li>
+          <li><a class="button button--action button--primary" href="/node/add/article">+ New Article</a></li>
         </ul>
       </div>
     </div>
@@ -26,8 +27,9 @@
       <h3 class="card-title">My Blog Posts</h3>
       <div class="card-content"> {{ drupal_view('my_blog_posts', 'block_1') }}</div>
       <div class="card-footer">
-        <ul class="card-footer-links">
-          <li><a href="/admin/content?title=&type=article&langcode=All">View All &rsaquo;</a></li>
+        <ul class="card-footer-links action-links">
+          <li><a class="button button--action button--primary" href="/admin/content?title=&type=article&langcode=All">View All &rsaquo;</a></li>
+          <li><a class="button button--action button--primary" href="/node/add/article">+ New Article</a></li>
         </ul>
       </div>
     </div>
@@ -38,9 +40,9 @@
       <h3 class="card-title">Latest Imported Videos</h3>
       <div class="card-content"> {{ drupal_view('latest_imported_videos', 'block_1') }}</div>
       <div class="card-footer">
-        <ul class="card-footer-links">
-          <li><a href="/admin/film/import">Import Videos &rsaquo;</a></li>
-          <li><a href="/admin/bulk-edit/videos">Bulk Edit Videos &rsaquo;</a></li>
+        <ul class="card-footer-links action-links">
+          <li><a class="button button--action button--primary" href="/admin/film/import">Import Videos &rsaquo;</a></li>
+          <li><a class="button button--action button--primary" href="/admin/bulk-edit/videos">Bulk Edit Videos &rsaquo;</a></li>
         </ul>
       </div>
     </div>
