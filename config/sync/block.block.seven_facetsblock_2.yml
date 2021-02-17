@@ -1,0 +1,35 @@
+uuid: f6b4910e-9f47-424d-a803-81c02e15e3ff
+langcode: en
+status: true
+dependencies:
+  module:
+    - facets_block
+    - system
+  theme:
+    - seven
+id: seven_facetsblock_2
+theme: seven
+region: header
+weight: -6
+provider: null
+plugin: facets_block
+settings:
+  id: facets_block
+  label: 'Game Filters'
+  provider: facets_block
+  label_display: visible
+  show_title: true
+  exclude_empty_facets: true
+  facets_to_include:
+    'facet_block:opponent': 'facet_block:opponent'
+    'facet_block:season': 'facet_block:season'
+    'facet_block:week': 'facet_block:week'
+    'facet_block:personnel': '0'
+    'facet_block:play_type': '0'
+    'facet_block:pre_snap_movement': '0'
+    'facet_block:td_scored': '0'
+visibility:
+  request_path:
+    id: request_path
+    pages: /search
+    negate: false

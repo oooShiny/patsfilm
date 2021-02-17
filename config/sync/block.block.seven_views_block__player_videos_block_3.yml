@@ -1,0 +1,33 @@
+uuid: f73e7281-5670-4f00-99e3-6688c73309f4
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.player_videos
+  module:
+    - node
+    - views
+  theme:
+    - seven
+id: seven_views_block__player_videos_block_3
+theme: seven
+region: content
+weight: 0
+provider: null
+plugin: 'views_block:player_videos-block_3'
+settings:
+  id: 'views_block:player_videos-block_3'
+  label: ''
+  provider: views
+  label_display: '0'
+  views_label: ''
+  items_per_page: none
+  context_mapping: {  }
+visibility:
+  node_type:
+    id: node_type
+    bundles:
+      player: player
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

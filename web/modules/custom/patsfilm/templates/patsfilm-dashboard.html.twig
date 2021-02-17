@@ -1,30 +1,49 @@
+<h1 class="js-quickedit-page-title page-title">{{ dashuser }}'s Dashboard</h1>
 
-<h2 class="system-themes-list__header">{{ dashuser }}'s Dashboard</h2>
-<div class="card-list card-list--four-cols">
-  <div class="card card--vertical card-list__item">
-    <div class="card__content-wrapper">
-      <div class="card__content">
-        <h3 class="card__content-item heading-f">Video Links</h3>
-        <div class="card__content-item">
-          <ul>
-            <li><a href="/admin/film/import">Import Videos</a></li>
-            <li><a href="/admin/bulk-edit/videos">Bulk Edit Videos</a></li>
-          </ul>
-        </div>
+<div id="block-seven-local-actions">
+  <ul class="action-links">
+    <li><a href="/admin/film/import" class="button button--action button--primary" data-drupal-link-system-path="admin/film/import">Import Videos</a></li>
+    <li><a href="/admin/bulk-edit/videos" class="button button--action button--primary" data-drupal-link-system-path="admin/bulk-edit/videos">Bulk Edit Videos</a></li>
+  </ul>
+</div>
+
+<div class="grid-row">
+
+  <div class="grid-item">
+    <div class="card">
+      <h3 class="card-title">Unpublished Blog Posts</h3>
+      <div class="card-content"> {{ drupal_view('unpublished_blog_posts', 'block_1') }}</div>
+      <div class="card-footer">
+        <ul class="card-footer-links">
+          <li><a href="/admin/content?title=&type=article&status=2&langcode=All">View All &rsaquo;</a></li>
+        </ul>
       </div>
     </div>
   </div>
-  <div class="card card--vertical card-list__item">
-    <div class="card__content-wrapper">
-      <div class="card__content">
-        <h3 class="card__content-item heading-f">Video Links</h3>
-        <div class="card__content-item">
-          <ul>
-            <li><a href="/admin/film/import">Import Videos</a></li>
-            <li><a href="/admin/bulk-edit/videos">Bulk Edit Videos</a></li>
-          </ul>
-        </div>
+
+  <div class="grid-item">
+    <div class="card">
+      <h3 class="card-title">My Blog Posts</h3>
+      <div class="card-content"> {{ drupal_view('my_blog_posts', 'block_1') }}</div>
+      <div class="card-footer">
+        <ul class="card-footer-links">
+          <li><a href="/admin/content?title=&type=article&langcode=All">View All &rsaquo;</a></li>
+        </ul>
       </div>
     </div>
   </div>
+
+  <div class="grid-item">
+    <div class="card">
+      <h3 class="card-title">Latest Imported Videos</h3>
+      <div class="card-content"> {{ drupal_view('latest_imported_videos', 'block_1') }}</div>
+      <div class="card-footer">
+        <ul class="card-footer-links">
+          <li><a href="/admin/film/import">Import Videos &rsaquo;</a></li>
+          <li><a href="/admin/bulk-edit/videos">Bulk Edit Videos &rsaquo;</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
 </div>

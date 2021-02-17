@@ -1,0 +1,33 @@
+uuid: 98b0acf0-ca6c-4e5f-b604-0a4eaa236c94
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.game_videos
+  module:
+    - node
+    - views
+  theme:
+    - seven
+id: seven_game_videos_block
+theme: seven
+region: content
+weight: -3
+provider: null
+plugin: 'views_block:game_videos-block_1'
+settings:
+  id: 'views_block:game_videos-block_1'
+  label: ''
+  provider: views
+  label_display: '0'
+  views_label: ''
+  items_per_page: none
+  context_mapping: {  }
+visibility:
+  node_type:
+    id: node_type
+    bundles:
+      game: game
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

@@ -1,0 +1,32 @@
+uuid: 7b474af1-a63b-40d6-bf78-e780bba8979d
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.related_plays
+  module:
+    - node
+    - views
+  theme:
+    - seven
+id: seven_related_plays_block
+theme: seven
+region: content
+weight: 1
+provider: null
+plugin: 'views_block:related_plays-block_1'
+settings:
+  id: 'views_block:related_plays-block_1'
+  label: ''
+  provider: views
+  label_display: '0'
+  views_label: ''
+  items_per_page: none
+visibility:
+  node_type:
+    id: node_type
+    bundles:
+      video: video
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

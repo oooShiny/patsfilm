@@ -10,7 +10,7 @@ patsfilm.videoimport:
 patsfilm.dashboard:
   path: '/admin/dashboard'
   defaults:
-    _title: 'Admin Dashboard'
+    _title: 'Content Dashboard'
     _controller: '\Drupal\patsfilm\Controller\DashboardController::content'
   requirements:
     _permission: 'add muse videos'

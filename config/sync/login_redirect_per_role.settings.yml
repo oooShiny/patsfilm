@@ -1,0 +1,18 @@
+login:
+  authenticated:
+    redirect_url: /admin/dashboard
+    weight: 0
+    allow_destination: false
+  administrator:
+    redirect_url: ''
+    weight: 0
+    allow_destination: false
+logout:
+  authenticated:
+    redirect_url: ''
+    weight: 0
+    allow_destination: false
+  administrator:
+    redirect_url: ''
+    weight: 0
+    allow_destination: false

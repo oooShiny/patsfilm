@@ -1,0 +1,19 @@
+uuid: 86cb8f34-a1bc-4ac7-9c47-f483eb6895b9
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+id: seven_admin_grids
+label: 'Seven Admin Grids'
+code: ".grid-row {\n    display: flex;\n    justify-content: space-around;\n    flex-flow: row wrap;\n}"
+conditions_require_all: true
+conditions:
+  current_theme:
+    id: current_theme
+    theme:
+      seven: seven
+    negate: false
+contexts: {  }
+media: all
+preprocess: true
